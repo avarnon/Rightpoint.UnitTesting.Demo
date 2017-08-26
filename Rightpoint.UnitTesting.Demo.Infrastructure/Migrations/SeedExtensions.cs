@@ -27,11 +27,14 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Migrations
             if (context.Set<Domain.Models.SecondaryObject>().Any()) return;
 
             var testModels = context.Set<Domain.Models.PrimaryObject>()
+                .ToList()
                 .SelectMany(o => Enumerable.Range(1, 100)
                 .Select(i => new Domain.Models.SecondaryObject(Guid.Parse($"00000000-0000-0000-{o.Id.ToString().Split('-')[3]}-{i.ToString("000000000000")}"))
                 {
                     Name = $"Primary Object {i}",
                     Description = $"This is primary object {i}",
+                    PrimaryObject = o,
+                    PrimaryObject_Id = o.Id,
                 }))
                 .ToArray();
 

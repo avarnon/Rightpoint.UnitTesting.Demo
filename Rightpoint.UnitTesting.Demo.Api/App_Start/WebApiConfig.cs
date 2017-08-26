@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace Rightpoint.UnitTesting.Demo.Api
@@ -19,6 +20,15 @@ namespace Rightpoint.UnitTesting.Demo.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Use custom binding for JSON Formatter
+            var defaultJsonformatter = config.Formatters.OfType<JsonMediaTypeFormatter>().SingleOrDefault();
+            if (defaultJsonformatter != null)
+            {
+                config.Formatters.Remove(defaultJsonformatter);
+            }
+
+            config.Formatters.Insert(0, new RightpointJsonMediaTypeFormatter());
         }
     }
 }
