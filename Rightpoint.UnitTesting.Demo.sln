@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Infrastructure", "Rightpoint.UnitTesting.Demo.Infrastructure\Rightpoint.UnitTesting.Demo.Infrastructure.csproj", "{16F1F8F2-F0EE-4237-87C2-43E064D8C943}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Domain.Tests", "Rightpoint.UnitTesting.Demo.Domain.Tests\Rightpoint.UnitTesting.Demo.Domain.Tests.csproj", "{CD464BF3-2FBC-42EB-B82C-8A6B8BF1D94A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Infrastructure.Tests", "Rightpoint.UnitTesting.Demo.Infrastructure.Tests\Rightpoint.UnitTesting.Demo.Infrastructure.Tests.csproj", "{BC9050F3-6C42-48E2-9A63-865AC16ADFD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Api.Tests", "Rightpoint.UnitTesting.Demo.Api.Tests\Rightpoint.UnitTesting.Demo.Api.Tests.csproj", "{FCDB9DF9-941D-4CBF-9DA2-CB037EE71210}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD464BF3-2FBC-42EB-B82C-8A6B8BF1D94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD464BF3-2FBC-42EB-B82C-8A6B8BF1D94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD464BF3-2FBC-42EB-B82C-8A6B8BF1D94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD464BF3-2FBC-42EB-B82C-8A6B8BF1D94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC9050F3-6C42-48E2-9A63-865AC16ADFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC9050F3-6C42-48E2-9A63-865AC16ADFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC9050F3-6C42-48E2-9A63-865AC16ADFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC9050F3-6C42-48E2-9A63-865AC16ADFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCDB9DF9-941D-4CBF-9DA2-CB037EE71210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCDB9DF9-941D-4CBF-9DA2-CB037EE71210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCDB9DF9-941D-4CBF-9DA2-CB037EE71210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCDB9DF9-941D-4CBF-9DA2-CB037EE71210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
