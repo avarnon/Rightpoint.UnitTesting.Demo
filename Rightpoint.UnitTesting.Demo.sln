@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Api", "Rightpoint.UnitTesting.Demo.Api\Rightpoint.UnitTesting.Demo.Api.csproj", "{A1FA467A-FDC7-43EB-AD8A-375126741A48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Domain", "Rightpoint.UnitTesting.Demo.Domain\Rightpoint.UnitTesting.Demo.Domain.csproj", "{C3E9ADE8-FF75-4D17-940A-9F338EF86C31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Infrastructure", "Rightpoint.UnitTesting.Demo.Infrastructure\Rightpoint.UnitTesting.Demo.Infrastructure.csproj", "{16F1F8F2-F0EE-4237-87C2-43E064D8C943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A1FA467A-FDC7-43EB-AD8A-375126741A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1FA467A-FDC7-43EB-AD8A-375126741A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1FA467A-FDC7-43EB-AD8A-375126741A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E9ADE8-FF75-4D17-940A-9F338EF86C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E9ADE8-FF75-4D17-940A-9F338EF86C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E9ADE8-FF75-4D17-940A-9F338EF86C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E9ADE8-FF75-4D17-940A-9F338EF86C31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F1F8F2-F0EE-4237-87C2-43E064D8C943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
