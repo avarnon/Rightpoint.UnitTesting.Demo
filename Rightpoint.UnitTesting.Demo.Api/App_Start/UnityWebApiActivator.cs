@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity.WebApi;
 namespace Rightpoint.UnitTesting.Demo.Api
 {
     /// <summary>Provides the bootstrapping for integrating Unity with WebApi when it is hosted in ASP.NET</summary>
+    [ExcludeFromCodeCoverage]
     public static class UnityWebApiActivator
     {
         /// <summary>Integrates Unity when the application starts.</summary>

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Formatting;
-using System.Reflection;
-using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace Rightpoint.UnitTesting.Demo.Api
 {
+    [ExcludeFromCodeCoverage]
     public class RightpointJsonMediaTypeFormatter : JsonMediaTypeFormatter
     {
         public RightpointJsonMediaTypeFormatter()

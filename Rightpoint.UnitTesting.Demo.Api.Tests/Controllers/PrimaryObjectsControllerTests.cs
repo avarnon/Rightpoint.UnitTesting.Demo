@@ -102,7 +102,8 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
                 Assert.AreEqual(sourcePrimaryObject.Description, destinationPrimaryObject.Description);
                 Assert.AreEqual(sourcePrimaryObject.Id, destinationPrimaryObject.Id);
                 Assert.AreEqual(sourcePrimaryObject.Name, destinationPrimaryObject.Name);
-                Assert.AreEqual(sourcePrimaryObject.SecondaryObjects.Count, destinationPrimaryObject.SecondaryObjects?.Count());
+                Assert.IsNotNull(destinationPrimaryObject.SecondaryObjects);
+                Assert.AreEqual(sourcePrimaryObject.SecondaryObjects.Count, destinationPrimaryObject.SecondaryObjects.Count());
                 foreach (var destinationSecondaryObject in destinationPrimaryObject.SecondaryObjects)
                 {
                     var sourceSecondaryObject = sourcePrimaryObject.SecondaryObjects.SingleOrDefault(_ => _.Id == destinationSecondaryObject.Id);
@@ -169,7 +170,8 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             Assert.AreEqual(sourcePrimaryObject.Description, destinationPrimaryObject.Description);
             Assert.AreEqual(sourcePrimaryObject.Id, destinationPrimaryObject.Id);
             Assert.AreEqual(sourcePrimaryObject.Name, destinationPrimaryObject.Name);
-            Assert.AreEqual(sourcePrimaryObject.SecondaryObjects.Count, destinationPrimaryObject.SecondaryObjects?.Count());
+            Assert.IsNotNull(destinationPrimaryObject.SecondaryObjects);
+            Assert.AreEqual(sourcePrimaryObject.SecondaryObjects.Count, destinationPrimaryObject.SecondaryObjects.Count());
             foreach (var destinationSecondaryObject in destinationPrimaryObject.SecondaryObjects)
             {
                 var sourceSecondaryObject = sourcePrimaryObject.SecondaryObjects.SingleOrDefault(_ => _.Id == destinationSecondaryObject.Id);

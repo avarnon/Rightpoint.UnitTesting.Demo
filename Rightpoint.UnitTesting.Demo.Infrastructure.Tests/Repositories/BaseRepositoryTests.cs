@@ -49,6 +49,30 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Repositories
         }
 
         [TestMethod]
+        public async Task Repository_AddMany()
+        {
+            var newModels = new[]
+            {
+                this.ContstructModel(Guid.NewGuid()),
+                this.ContstructModel(Guid.NewGuid()),
+                this.ContstructModel(Guid.NewGuid()),
+                this.ContstructModel(Guid.NewGuid()),
+            };
+            var repository = this.ConstructRepository(this.Context.Object);
+
+            repository.AddMany(newModels);
+            var models = await repository.GetAllAsync();
+            Assert.IsNotNull(models);
+            Assert.AreEqual(this.TestModels.Count + 4, models.Count);
+
+            foreach (var newModel in newModels)
+            {
+                var addedModel = models.SingleOrDefault(x => x.Id == newModel.Id);
+                Assert.IsNotNull(addedModel);
+            }
+        }
+
+        [TestMethod]
         public async Task Repository_GetAllAsync()
         {
             var repository = this.ConstructRepository(this.Context.Object);
@@ -107,6 +131,16 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Repositories
             var models = await repository.GetByIdsAsync(selectedIds);
             Assert.IsNotNull(models);
             Assert.AreEqual(0, models.Count);
+        }
+
+        [TestMethod]
+        public async Task Repository_Remove()
+        {
+            var repository = this.ConstructRepository(this.Context.Object);
+            var source = this.TestModels.First();
+            var removed = repository.Remove(source);
+            Assert.IsNotNull(removed);
+            Assert.AreEqual(source.Id, removed.Id);
         }
 
         [TestMethod]

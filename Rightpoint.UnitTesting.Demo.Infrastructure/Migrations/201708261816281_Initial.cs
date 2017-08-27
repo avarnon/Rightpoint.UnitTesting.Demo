@@ -1,8 +1,10 @@
-    using System;
-    using System.Data.Entity.Migrations;
+using System;
+using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Rightpoint.UnitTesting.Demo.Infrastructure.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class Initial : DbMigration
     {
         public override void Up()

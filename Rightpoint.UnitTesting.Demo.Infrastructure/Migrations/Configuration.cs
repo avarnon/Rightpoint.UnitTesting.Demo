@@ -1,10 +1,12 @@
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
 namespace Rightpoint.UnitTesting.Demo.Infrastructure.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
+    [ExcludeFromCodeCoverage]
     internal sealed class Configuration : DbMigrationsConfiguration<Rightpoint.UnitTesting.Demo.Infrastructure.Data.DemoContext>
     {
         public Configuration()

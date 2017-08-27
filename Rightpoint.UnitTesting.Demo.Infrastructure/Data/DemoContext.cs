@@ -1,8 +1,10 @@
 ﻿using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using Rightpoint.UnitTesting.Demo.Domain.Models;
 
 namespace Rightpoint.UnitTesting.Demo.Infrastructure.Data
 {
+    [ExcludeFromCodeCoverage]
     public class DemoContext : DbContext
     {
         public DemoContext()
