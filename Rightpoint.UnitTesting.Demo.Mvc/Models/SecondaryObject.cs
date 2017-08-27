@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rightpoint.UnitTesting.Demo.Api.Models
+namespace Rightpoint.UnitTesting.Demo.Mvc.Models
 {
     public class SecondaryObject
     {

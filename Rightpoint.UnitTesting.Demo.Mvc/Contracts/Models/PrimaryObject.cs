@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Rightpoint.UnitTesting.Demo.Api.Models
+namespace Rightpoint.UnitTesting.Demo.Mvc.Contracts.Models
 {
     public class PrimaryObject
     {
