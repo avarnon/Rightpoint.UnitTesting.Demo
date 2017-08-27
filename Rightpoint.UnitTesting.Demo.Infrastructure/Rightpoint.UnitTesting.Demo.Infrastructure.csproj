@@ -66,6 +66,7 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\SecondaryObjectRepository.cs" />
     <Compile Include="Repositories\PrimaryObjectRepository.cs" />
+    <Compile Include="Services\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

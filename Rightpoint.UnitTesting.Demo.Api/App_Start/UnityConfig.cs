@@ -6,6 +6,7 @@ using Rightpoint.UnitTesting.Demo.Api.Services;
 using Rightpoint.UnitTesting.Demo.Domain.Repositories;
 using Rightpoint.UnitTesting.Demo.Infrastructure.Data;
 using Rightpoint.UnitTesting.Demo.Infrastructure.Repositories;
+using Rightpoint.UnitTesting.Demo.Infrastructure.Services;
 
 namespace Rightpoint.UnitTesting.Demo.Api
 {
@@ -36,6 +37,7 @@ namespace Rightpoint.UnitTesting.Demo.Api
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<DemoContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectRepository, PrimaryObjectRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ISecondaryObjectRepository, SecondaryObjectRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectService, PrimaryObjectService>(new HierarchicalLifetimeManager());

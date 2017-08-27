@@ -14,7 +14,6 @@ namespace Rightpoint.UnitTesting.Demo.Domain.Tests.Models
         public void PrimaryObject_Constructor_Id_Empty()
         {
             var primaryObject = new PrimaryObject(Guid.Empty);
-            Assert.Fail("Expected Exception was not thrown");
         }
 
         [TestMethod]

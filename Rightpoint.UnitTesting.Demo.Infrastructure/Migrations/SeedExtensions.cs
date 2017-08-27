@@ -6,7 +6,6 @@ using Rightpoint.UnitTesting.Demo.Infrastructure.Data;
 
 namespace Rightpoint.UnitTesting.Demo.Infrastructure.Migrations
 {
-    [ExcludeFromCodeCoverage]
     internal static class SeedExtensions
     {
         public static void AddPrimaryObjects(this DemoContext context)

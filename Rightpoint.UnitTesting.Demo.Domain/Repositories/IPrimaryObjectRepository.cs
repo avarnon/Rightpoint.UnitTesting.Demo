@@ -7,8 +7,12 @@ namespace Rightpoint.UnitTesting.Demo.Domain.Repositories
 {
     public interface IPrimaryObjectRepository
     {
-        Task<PrimaryObject> GetByIdAsync(Guid id);
+        PrimaryObject Add(PrimaryObject entity);
 
         Task<ICollection<PrimaryObject>> GetAllAsync();
+
+        Task<PrimaryObject> GetByIdAsync(Guid id);
+
+        PrimaryObject Remove(PrimaryObject entity);
     }
 }

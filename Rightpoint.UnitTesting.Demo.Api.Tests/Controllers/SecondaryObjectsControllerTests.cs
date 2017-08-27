@@ -29,13 +29,54 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         public void SecondaryObjectsController_Constructor_SecondaryObjectService_Null()
         {
             var secondaryObjectsController = new SecondaryObjectsController(null);
-            Assert.Fail("Expected exception was not thrown");
         }
 
         [TestMethod]
         public void SecondaryObjectsController_Constructor_Valid()
         {
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
+        }
+
+        [TestMethod]
+        public async Task SecondaryObjectsController_CreateAsync_Valid()
+        {
+            var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
+            var sourceSecondaryObject = new ApiModels.SecondaryObject()
+            {
+                Description = "Description 1",
+                Name = "Name 1",
+            };
+
+            _secondaryObjectService.Setup(_ => _.CreateAsync(It.IsAny<Guid>(), It.IsAny<ApiModels.SecondaryObject>())).ReturnsAsync(new DomainModels.SecondaryObject(Guid.NewGuid()));
+
+            var destinationSecondaryObject = await secondaryObjectsController.CreateAsync(Guid.NewGuid(), sourceSecondaryObject);
+            Assert.IsNotNull(destinationSecondaryObject);
+        }
+
+        [TestMethod]
+        public async Task SecondaryObjectsController_CreateAsync_NotCreated()
+        {
+            var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
+            ApiModels.SecondaryObject sourceSecondaryObject = null;
+
+            _secondaryObjectService.Setup(_ => _.CreateAsync(It.IsAny<Guid>(), It.IsAny<ApiModels.SecondaryObject>())).ReturnsAsync(null as DomainModels.SecondaryObject);
+
+            try
+            {
+                await secondaryObjectsController.CreateAsync(Guid.NewGuid(), sourceSecondaryObject);
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.IsNotNull(ex.Response);
+                Assert.AreEqual(HttpStatusCode.BadRequest, ex.Response.StatusCode);
+            }
+        }
+
+        [TestMethod]
+        public async Task SecondaryObjectsController_DeleteAsync()
+        {
+            var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
+            await secondaryObjectsController.DeleteAsync(Guid.NewGuid());
         }
 
         [TestMethod]
@@ -127,7 +168,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             sourceSecondaryObject.PrimaryObject_Id = sourceSecondaryObject.PrimaryObject.Id;
             sourceSecondaryObject.PrimaryObject.SecondaryObjects = new List<DomainModels.SecondaryObject>() { sourceSecondaryObject };
 
-            _secondaryObjectService.Setup(_ => _.GetAsync(It.Is<Guid>(id => id == sourceSecondaryObject.Id))).ReturnsAsync(sourceSecondaryObject);
+            _secondaryObjectService.Setup(_ => _.GetAsync(sourceSecondaryObject.Id)).ReturnsAsync(sourceSecondaryObject);
 
             var destinationSecondaryObject = await secondaryObjectsController.GetAsync(sourceSecondaryObject.Id);
             Assert.IsNotNull(destinationSecondaryObject);
@@ -152,6 +193,56 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await secondaryObjectsController.GetAsync(Guid.NewGuid());
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.IsNotNull(ex.Response);
+                Assert.AreEqual(HttpStatusCode.NotFound, ex.Response.StatusCode);
+            }
+        }
+
+        [TestMethod]
+        public async Task SecondaryObjectsController_UpdateAsync_Found()
+        {
+            var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
+            var sourceSecondaryObject = new DomainModels.SecondaryObject(Guid.NewGuid())
+            {
+                Description = "Description 1.1",
+                Name = "Name 1.1",
+                PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                },
+            };
+            sourceSecondaryObject.PrimaryObject_Id = sourceSecondaryObject.PrimaryObject.Id;
+            sourceSecondaryObject.PrimaryObject.SecondaryObjects = new List<DomainModels.SecondaryObject>() { sourceSecondaryObject };
+
+            _secondaryObjectService.Setup(_ => _.UpdateAsync(sourceSecondaryObject.Id, It.IsAny<ApiModels.SecondaryObject>())).ReturnsAsync(sourceSecondaryObject);
+
+            var destinationSecondaryObject = await secondaryObjectsController.UpdateAsync(sourceSecondaryObject.Id, new ApiModels.SecondaryObject());
+            Assert.IsNotNull(destinationSecondaryObject);
+            Assert.AreEqual(sourceSecondaryObject.Description, destinationSecondaryObject.Description);
+            Assert.AreEqual(sourceSecondaryObject.Id, destinationSecondaryObject.Id);
+            Assert.AreEqual(sourceSecondaryObject.Name, destinationSecondaryObject.Name);
+            Assert.IsNotNull(destinationSecondaryObject.PrimaryObject);
+            Assert.IsNull(destinationSecondaryObject.PrimaryObject.Description);
+            Assert.AreEqual(sourceSecondaryObject.PrimaryObject.Id, destinationSecondaryObject.PrimaryObject.Id);
+            Assert.IsNull(destinationSecondaryObject.PrimaryObject.Name);
+            Assert.IsNull(destinationSecondaryObject.PrimaryObject.SecondaryObjects);
+        }
+
+        [TestMethod]
+        public async Task SecondaryObjectsController_UpdateAsync_NotFound()
+        {
+            var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
+            DomainModels.SecondaryObject sourceSecondaryObject = null;
+
+            _secondaryObjectService.Setup(_ => _.UpdateAsync(It.IsAny<Guid>(), It.IsAny<ApiModels.SecondaryObject>())).ReturnsAsync(sourceSecondaryObject);
+
+            try
+            {
+                await secondaryObjectsController.UpdateAsync(Guid.NewGuid(), new ApiModels.SecondaryObject());
             }
             catch (HttpResponseException ex)
             {

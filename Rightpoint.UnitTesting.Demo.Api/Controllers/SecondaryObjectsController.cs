@@ -23,6 +23,28 @@ namespace Rightpoint.UnitTesting.Demo.Api.Controllers
             this._secondaryObjectService = secondaryObjectService;
         }
 
+        // POST /api/primaryobjects/00000000-0000-0000-0000-000000000000/secondaryobjects
+        [HttpPost]
+        [Route("~/api/primaryobjects/{primaryObjectd:guid}/secondaryobjects")]
+        public async Task<ApiModels.SecondaryObject> CreateAsync(Guid primaryObjectd, ApiModels.SecondaryObject inputModel)
+        {
+            var domainSecondaryObject = await _secondaryObjectService.CreateAsync(primaryObjectd, inputModel);
+
+            Ensure.That(domainSecondaryObject, nameof(domainSecondaryObject))
+                .WithException(_ => new HttpResponseException(HttpStatusCode.BadRequest))
+                .IsNotNull();
+
+            return this.Map(domainSecondaryObject);
+        }
+
+        // DELETE /api/secondaryobjects/00000000-0000-0000-0000-000000000000
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task DeleteAsync(Guid id)
+        {
+            await _secondaryObjectService.DeleteAsync(id);
+        }
+
         // GET /api/secondaryobjects
         [HttpGet]
         [Route("")]
@@ -34,17 +56,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Controllers
                 .WithException(_ => new HttpResponseException(HttpStatusCode.NotFound))
                 .IsNotNull();
 
-            return domainSecondaryObjects.Select(domainSecondaryObject => new ApiModels.SecondaryObject()
-            {
-                Description = domainSecondaryObject.Description,
-                Id = domainSecondaryObject.Id,
-                Name = domainSecondaryObject.Name,
-                PrimaryObject = new ApiModels.PrimaryObject()
-                {
-                    Id = domainSecondaryObject.PrimaryObject_Id,
-                },
-            })
-            ?.ToArray();
+            return domainSecondaryObjects.Select(this.Map).ToArray();
         }
 
         // GET /api/secondaryobjects/00000000-0000-0000-0000-000000000000
@@ -58,6 +70,25 @@ namespace Rightpoint.UnitTesting.Demo.Api.Controllers
                 .WithException(_ => new HttpResponseException(HttpStatusCode.NotFound))
                 .IsNotNull();
 
+            return this.Map(domainSecondaryObject);
+        }
+
+        // PUT /api/secondaryobjects/00000000-0000-0000-0000-000000000000
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<ApiModels.SecondaryObject> UpdateAsync(Guid id, ApiModels.SecondaryObject inputModel)
+        {
+            var domainSecondaryObject = await _secondaryObjectService.UpdateAsync(id, inputModel);
+
+            Ensure.That(domainSecondaryObject, nameof(domainSecondaryObject))
+                .WithException(_ => new HttpResponseException(HttpStatusCode.NotFound))
+                .IsNotNull();
+
+            return this.Map(domainSecondaryObject);
+        }
+
+        private ApiModels.SecondaryObject Map(DomainModels.SecondaryObject domainSecondaryObject)
+        {
             return new ApiModels.SecondaryObject()
             {
                 Description = domainSecondaryObject.Description,

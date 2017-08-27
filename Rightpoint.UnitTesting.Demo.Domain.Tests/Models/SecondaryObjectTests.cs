@@ -14,7 +14,6 @@ namespace Rightpoint.UnitTesting.Demo.Domain.Tests.Models
         public void SecondaryObject_Constructor_Id_Empty()
         {
             var secondaryObject = new SecondaryObject(Guid.Empty);
-            Assert.Fail("Expected Exception was not thrown");
         }
 
         [TestMethod]

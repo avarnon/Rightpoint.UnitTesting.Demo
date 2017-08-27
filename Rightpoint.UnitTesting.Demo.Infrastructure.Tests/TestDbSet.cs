@@ -83,6 +83,29 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests
             return Activator.CreateInstance<TDerivedEntity>();
         }
 
+        public void AddOrUpdate(params TEntity[] entities)
+        {
+            foreach (var entity in entities)
+            {
+                if (_data.Contains(entity) == false)
+                {
+                    _data.Add(entity);
+                }
+            }
+        }
+
+        public void AddOrUpdate(Expression<Func<TEntity, object>> identifierExpression, params TEntity[] entities)
+        {
+            var getIdentifier = identifierExpression.Compile();
+            foreach (var entity in entities)
+            {
+                if (_data.Any(item => getIdentifier(item) == getIdentifier(entity)) == false)
+                {
+                    _data.Add(entity);
+                }
+            }
+        }
+
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _data.GetEnumerator();
