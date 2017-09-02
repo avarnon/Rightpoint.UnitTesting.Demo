@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Http;
+using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rightpoint.UnitTesting.Demo.Mvc.App_Start;
 
-namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
+namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
 {
     [TestClass]
     public class UnityConfigTests
@@ -21,26 +22,27 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
         {
             using (var container = UnityConfig.GetConfiguredContainer())
             {
+                container.RegisterInstance<string>("AppSettings:ApiUrl", "https://www.fakeurl.com");
                 var controllerTypes = typeof(UnityConfig).Assembly.GetTypes()
-                    .Where(_ => IsApiControllerType(_))
+                    .Where(_ => IsMvcControllerType(_))
                     .ToArray();
                 foreach (var type in controllerTypes)
                 {
                     var resolvedObject = container.Resolve(type);
                     Assert.IsNotNull(resolvedObject);
-                    var apiController = resolvedObject as ApiController;
+                    var apiController = resolvedObject as Controller;
                     Assert.IsNotNull(apiController);
                 }
             }
         }
 
-        private static bool IsApiControllerType(Type type)
+        private static bool IsMvcControllerType(Type type)
         {
             if (type == null || type == typeof(object))
             {
                 return false;
             }
-            else if (type == typeof(ApiController))
+            else if (type == typeof(Controller))
             {
                 return true;
             }
@@ -48,13 +50,13 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
             {
                 return false;
             }
-            else if (type.BaseType == typeof(ApiController))
+            else if (type.BaseType == typeof(Controller))
             {
                 return true;
             }
             else
             {
-                return IsApiControllerType(type.BaseType);
+                return IsMvcControllerType(type.BaseType);
             }
         }
     }

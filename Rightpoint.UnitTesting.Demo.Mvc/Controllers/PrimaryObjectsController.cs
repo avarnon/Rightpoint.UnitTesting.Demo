@@ -1,84 +1,158 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using EnsureThat;
+using Rightpoint.UnitTesting.Demo.Mvc.Contracts;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Controllers
 {
     public class PrimaryObjectsController : Controller
     {
-        // GET: PrimaryObjects
-        public ActionResult Index()
+        private readonly IPrimaryObjectService _primaryObjectService;
+
+        public PrimaryObjectsController(IPrimaryObjectService primaryObjectService)
         {
-            return View();
+            Ensure.That(primaryObjectService, nameof(primaryObjectService)).IsNotNull();
+
+            this._primaryObjectService = primaryObjectService;
         }
 
-        // GET: PrimaryObjects/Details/5
-        public ActionResult Details(int id)
+        // GET: PrimaryObjects
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var primaryObjects = await _primaryObjectService.GetAllAsync();
+            var models = primaryObjects.Select(po => new Models.PrimaryObject()
+            {
+                Id = po.Id,
+                Description = po.Description,
+                Name = po.Name,
+                SecondaryObjects = po.SecondaryObjects?.Select(so => new Models.SecondaryObject()
+                {
+                    Id = so.Id,
+                    Description = so.Description,
+                    Name = so.Name,
+                })?.ToArray() ?? new Models.SecondaryObject[0],
+            }).ToArray();
+            Array.ForEach(models, po => Array.ForEach(po.SecondaryObjects.ToArray(), so => so.PrimaryObject = po));
+
+            return View(models);
         }
 
         // GET: PrimaryObjects/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Models.PrimaryObject();
+            return View(model);
         }
 
         // POST: PrimaryObjects/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(FormCollection collection)
         {
+            var model = new Models.PrimaryObject()
+            {
+                Description = collection[nameof(Models.PrimaryObject.Description)],
+                Name = collection[nameof(Models.PrimaryObject.Name)],
+                SecondaryObjects = new Models.SecondaryObject[0],
+            };
+
             try
             {
-                //// TODO: Add insert logic here
+                await _primaryObjectService.CreateAsync(model);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: PrimaryObjects/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(Guid id)
         {
-            return View();
+            var primaryObject = await _primaryObjectService.GetAsync(id);
+            var model = new Models.PrimaryObject()
+            {
+                Id = primaryObject.Id,
+                Description = primaryObject.Description,
+                Name = primaryObject.Name,
+                SecondaryObjects = primaryObject.SecondaryObjects?.Select(so => new Models.SecondaryObject()
+                {
+                    Id = so.Id,
+                    Description = so.Description,
+                    Name = so.Name,
+                })?.ToArray() ?? new Models.SecondaryObject[0],
+            };
+            Array.ForEach(model.SecondaryObjects.ToArray(), so => so.PrimaryObject = model);
+            return View(model);
         }
 
         // POST: PrimaryObjects/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit(Guid id, FormCollection collection)
         {
+            var model = new Models.PrimaryObject()
+            {
+                Id = id,
+                Description = collection[nameof(Models.PrimaryObject.Description)],
+                Name = collection[nameof(Models.PrimaryObject.Name)],
+                SecondaryObjects = new Models.SecondaryObject[0],
+            };
             try
             {
-                //// TODO: Add update logic here
+                await _primaryObjectService.UpdateAsync(id, model);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: PrimaryObjects/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            return View();
+            var primaryObject = await _primaryObjectService.GetAsync(id);
+            var model = new Models.PrimaryObject()
+            {
+                Id = primaryObject.Id,
+                Description = primaryObject.Description,
+                Name = primaryObject.Name,
+                SecondaryObjects = primaryObject.SecondaryObjects?.Select(so => new Models.SecondaryObject()
+                {
+                    Id = so.Id,
+                    Description = so.Description,
+                    Name = so.Name,
+                })?.ToArray() ?? new Models.SecondaryObject[0],
+            };
+            Array.ForEach(model.SecondaryObjects.ToArray(), so => so.PrimaryObject = model);
+            return View(model);
         }
 
         // POST: PrimaryObjects/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> Delete(Guid id, FormCollection collection)
         {
+            var model = new Models.PrimaryObject()
+            {
+                Id = id,
+                Description = collection[nameof(Models.PrimaryObject.Description)],
+                Name = collection[nameof(Models.PrimaryObject.Name)],
+                SecondaryObjects = new Models.SecondaryObject[0],
+            };
             try
             {
-                //// TODO: Add delete logic here
+                await _primaryObjectService.DeleteAsync(id);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(model);
             }
         }
     }
