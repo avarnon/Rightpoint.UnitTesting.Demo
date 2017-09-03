@@ -81,6 +81,8 @@
     <Compile Include="App_Start\UnityConfigTests.cs" />
     <Compile Include="Controllers\SecondaryObjectsControllerTests.cs" />
     <Compile Include="Controllers\PrimaryObjectsControllerTests.cs" />
+    <Compile Include="Models\SecondaryObjectTests.cs" />
+    <Compile Include="Models\PrimaryObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SecondaryObjectServiceTests.cs" />
     <Compile Include="Services\PrimaryObjectServiceTests.cs" />

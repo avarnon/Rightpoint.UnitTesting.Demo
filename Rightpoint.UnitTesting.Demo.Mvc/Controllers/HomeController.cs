@@ -2,11 +2,15 @@
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Controllers
 {
+    [RoutePrefix("")]
     public class HomeController : Controller
     {
+        // GET:
+        [HttpGet]
+        [Route("")]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "PrimaryObjects");
         }
     }
 }

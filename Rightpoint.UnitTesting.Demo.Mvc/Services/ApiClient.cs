@@ -34,7 +34,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 
             var inputJson = JsonConvert.SerializeObject(entity);
             _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-            _webClient.Headers[HttpRequestHeader.AcceptEncoding] = "application/json";
+            _webClient.Headers[HttpRequestHeader.Accept] = "application/json";
             string outputJson = null;
 
             try
@@ -70,7 +70,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
         {
             Ensure.That(address, nameof(address)).IsNotNullOrWhiteSpace();
 
-            _webClient.Headers[HttpRequestHeader.AcceptEncoding] = "application/json";
+            _webClient.Headers[HttpRequestHeader.Accept] = "application/json";
             string outputJson = null;
 
             try
@@ -94,7 +94,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 
             var inputJson = JsonConvert.SerializeObject(entity);
             _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-            _webClient.Headers[HttpRequestHeader.AcceptEncoding] = "application/json";
+            _webClient.Headers[HttpRequestHeader.Accept] = "application/json";
             string outputJson = null;
 
             try

@@ -176,6 +176,7 @@
     <Compile Include="Contracts\Models\SecondaryObject.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrimaryObjectsController.cs" />
+    <Compile Include="Controllers\SecondaryObjectsController.cs" />
     <Compile Include="Exceptions\DemoInvalidOperationException.cs" />
     <Compile Include="Exceptions\DemoEntityNotFoundException.cs" />
     <Compile Include="Exceptions\DemoException.cs" />
@@ -237,14 +238,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\PrimaryObjects\Index.cshtml" />
     <Content Include="Views\PrimaryObjects\Edit.cshtml" />
     <Content Include="Views\PrimaryObjects\Create.cshtml" />
     <Content Include="Views\PrimaryObjects\Delete.cshtml" />
+    <Content Include="Views\SecondaryObjects\Create.cshtml" />
+    <Content Include="Views\SecondaryObjects\Delete.cshtml" />
+    <Content Include="Views\SecondaryObjects\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

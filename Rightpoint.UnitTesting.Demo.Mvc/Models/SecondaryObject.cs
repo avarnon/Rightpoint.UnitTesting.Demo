@@ -10,6 +10,6 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Models
 
         public string Description { get; set; }
 
-        public PrimaryObject PrimaryObject { get; set; }
+        public Guid? PrimaryObjectId { get; set; }
     }
 }

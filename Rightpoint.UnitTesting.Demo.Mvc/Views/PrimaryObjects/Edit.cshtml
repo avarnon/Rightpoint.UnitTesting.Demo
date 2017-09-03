@@ -38,6 +38,43 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SecondaryObjects, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>
+                    @Html.ActionLink("Create New", "Create", "SecondaryObjects", new { id = Model.Id }, null)
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SecondaryObjects.FirstOrDefault().Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SecondaryObjects.FirstOrDefault().Description)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.SecondaryObjects)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "SecondaryObjects",  new { id = item.Id }, null) |
+                                @Html.ActionLink("Delete", "Delete", "SecondaryObjects", new { id = item.Id }, null)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
     </div>
 }
 

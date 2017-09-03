@@ -16,7 +16,7 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Migrations
                 .Select(i => new Domain.Models.PrimaryObject(Guid.Parse($"00000000-0000-0000-{i.ToString("0000")}-000000000000"))
                 {
                     Name = $"Primary Object {i}",
-                    Description = $"This is primary object {i}",
+                    Description = $"This is a primary object {i}",
                 })
                 .ToArray();
 
@@ -32,8 +32,8 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Migrations
                 .SelectMany(o => Enumerable.Range(1, 100)
                 .Select(i => new Domain.Models.SecondaryObject(Guid.Parse($"00000000-0000-0000-{o.Id.ToString().Split('-')[3]}-{i.ToString("000000000000")}"))
                 {
-                    Name = $"Primary Object {i}",
-                    Description = $"This is primary object {i}",
+                    Name = $"Secondary Object {i}",
+                    Description = $"This is a secondary object {i}",
                     PrimaryObject = o,
                     PrimaryObject_Id = o.Id,
                 }))
