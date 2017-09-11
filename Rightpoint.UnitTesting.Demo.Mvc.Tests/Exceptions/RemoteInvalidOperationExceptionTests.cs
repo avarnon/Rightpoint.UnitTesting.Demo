@@ -1,72 +1,73 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rightpoint.UnitTesting.Demo.Common.Tests;
 using Rightpoint.UnitTesting.Demo.Mvc.Exceptions;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
 {
     [TestClass]
-    public class DemoEntityNotFoundExceptionTests
+    public class RemoteInvalidOperationExceptionTests
     {
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_NoArguments()
+        public void RemoteInvalidOperationException_Constructor_NoArguments()
         {
-            var ex = new DemoEntityNotFoundException();
+            var ex = new RemoteInvalidOperationException();
 
             Assert.AreEqual("Error in the application.", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageArgument_Null()
+        public void RemoteInvalidOperationException_Constructor_MessageArgument_Null()
         {
-            var ex = new DemoEntityNotFoundException(null);
+            var ex = new RemoteInvalidOperationException(null);
 
-            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.DemoEntityNotFoundException' was thrown.", ex.Message);
+            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.RemoteInvalidOperationException' was thrown.", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageArgument_Empty()
+        public void RemoteInvalidOperationException_Constructor_MessageArgument_Empty()
         {
-            var ex = new DemoEntityNotFoundException(string.Empty);
+            var ex = new RemoteInvalidOperationException(string.Empty);
 
             Assert.AreEqual(string.Empty, ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageArgument_WhiteSpace()
+        public void RemoteInvalidOperationException_Constructor_MessageArgument_WhiteSpace()
         {
-            var ex = new DemoEntityNotFoundException("     ");
+            var ex = new RemoteInvalidOperationException("     ");
 
             Assert.AreEqual("     ", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageArgument_Valid()
+        public void RemoteInvalidOperationException_Constructor_MessageArgument_Valid()
         {
-            var ex = new DemoEntityNotFoundException("test");
+            var ex = new RemoteInvalidOperationException("test");
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_NullMessage()
+        public void RemoteInvalidOperationException_Constructor_MessageAndInnerExArgument_NullMessage()
         {
-            var ex = new DemoEntityNotFoundException(null, new Exception("Inner"));
+            var ex = new RemoteInvalidOperationException(null, new Exception("Inner"));
 
-            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.DemoEntityNotFoundException' was thrown.", ex.Message);
+            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.RemoteInvalidOperationException' was thrown.", ex.Message);
             Assert.IsNotNull(ex.InnerException);
             Assert.AreEqual("Inner", ex.InnerException.Message);
             Assert.IsNull(ex.InnerException.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_EmptyMessage()
+        public void RemoteInvalidOperationException_Constructor_MessageAndInnerExArgument_EmptyMessage()
         {
-            var ex = new DemoEntityNotFoundException(string.Empty, new Exception("Inner"));
+            var ex = new RemoteInvalidOperationException(string.Empty, new Exception("Inner"));
 
             Assert.AreEqual(string.Empty, ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -75,9 +76,9 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_WhiteSpaceMessage()
+        public void RemoteInvalidOperationException_Constructor_MessageAndInnerExArgument_WhiteSpaceMessage()
         {
-            var ex = new DemoEntityNotFoundException("     ", new Exception("Inner"));
+            var ex = new RemoteInvalidOperationException("     ", new Exception("Inner"));
 
             Assert.AreEqual("     ", ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -86,18 +87,18 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_NullInnerEx()
+        public void RemoteInvalidOperationException_Constructor_MessageAndInnerExArgument_NullInnerEx()
         {
-            var ex = new DemoEntityNotFoundException("test", null);
+            var ex = new RemoteInvalidOperationException("test", null);
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_Valid()
+        public void RemoteInvalidOperationException_Constructor_MessageAndInnerExArgument_Valid()
         {
-            var ex = new DemoEntityNotFoundException("test", new Exception("Inner"));
+            var ex = new RemoteInvalidOperationException("test", new Exception("Inner"));
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -106,14 +107,14 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoEntityNotFoundException_Constructor_Serialization()
+        public void RemoteInvalidOperationException_Constructor_Serialization()
         {
-            DemoEntityNotFoundException inputException = new DemoEntityNotFoundException("test", new Exception("Inner"));
+            RemoteInvalidOperationException inputException = new RemoteInvalidOperationException("test", new Exception("Inner"));
 
             byte[] bytes = BinarySerializer.Serialize(inputException);
             Assert.IsNotNull(bytes);
 
-            DemoEntityNotFoundException deserializedException = BinarySerializer.Deserialize<DemoEntityNotFoundException>(bytes);
+            RemoteInvalidOperationException deserializedException = BinarySerializer.Deserialize<RemoteInvalidOperationException>(bytes);
 
             Assert.IsNotNull(deserializedException);
             Assert.AreEqual(inputException.Message, deserializedException.Message);

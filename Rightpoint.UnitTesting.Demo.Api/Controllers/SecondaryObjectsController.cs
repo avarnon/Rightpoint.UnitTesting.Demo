@@ -12,7 +12,7 @@ using DomainModels = Rightpoint.UnitTesting.Demo.Domain.Models;
 namespace Rightpoint.UnitTesting.Demo.Api.Controllers
 {
     [RoutePrefix("api/secondaryobjects")]
-    public class SecondaryObjectsController : ApiController
+    public class SecondaryObjectsController : BaseController
     {
         private readonly ISecondaryObjectService _secondaryObjectService;
 

@@ -177,9 +177,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrimaryObjectsController.cs" />
     <Compile Include="Controllers\SecondaryObjectsController.cs" />
-    <Compile Include="Exceptions\DemoInvalidOperationException.cs" />
-    <Compile Include="Exceptions\DemoEntityNotFoundException.cs" />
-    <Compile Include="Exceptions\DemoException.cs" />
+    <Compile Include="Exceptions\RemoteInvalidOperationException.cs" />
+    <Compile Include="Exceptions\RemoteEntityNotFoundException.cs" />
+    <Compile Include="Exceptions\RemoteException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,6 +258,12 @@
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rightpoint.UnitTesting.Demo.Common\Rightpoint.UnitTesting.Demo.Common.csproj">
+      <Project>{47ac5c8d-311d-4b9a-a985-8567f41e61be}</Project>
+      <Name>Rightpoint.UnitTesting.Demo.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

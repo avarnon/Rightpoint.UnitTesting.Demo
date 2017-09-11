@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Rightpoint.UnitTesting.Demo.Mvc.Exceptions
+namespace Rightpoint.UnitTesting.Demo.Common.Exceptions
 {
     [Serializable]
     public class DemoEntityNotFoundException : DemoException

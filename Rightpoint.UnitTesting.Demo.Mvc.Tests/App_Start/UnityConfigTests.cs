@@ -24,7 +24,8 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
             {
                 container.RegisterInstance<string>("AppSettings:ApiUrl", "https://www.fakeurl.com");
                 var controllerTypes = typeof(UnityConfig).Assembly.GetTypes()
-                    .Where(_ => IsMvcControllerType(_))
+                    .Where(_ => IsMvcControllerType(_) &&
+                                _.IsAbstract == false)
                     .ToArray();
                 foreach (var type in controllerTypes)
                 {

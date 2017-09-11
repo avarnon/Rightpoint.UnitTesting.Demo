@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Mvc.Tests", "Rightpoint.UnitTesting.Demo.Mvc.Tests\Rightpoint.UnitTesting.Demo.Mvc.Tests.csproj", "{5681C633-56D8-4642-8E7A-07FEEB0C9B68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Common", "Rightpoint.UnitTesting.Demo.Common\Rightpoint.UnitTesting.Demo.Common.csproj", "{47AC5C8D-311D-4B9A-A985-8567F41E61BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Common.Tests", "Rightpoint.UnitTesting.Demo.Common.Tests\Rightpoint.UnitTesting.Demo.Common.Tests.csproj", "{77F0A84A-D3C2-4B39-9B1B-834652947ADE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{5681C633-56D8-4642-8E7A-07FEEB0C9B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5681C633-56D8-4642-8E7A-07FEEB0C9B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5681C633-56D8-4642-8E7A-07FEEB0C9B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47AC5C8D-311D-4B9A-A985-8567F41E61BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47AC5C8D-311D-4B9A-A985-8567F41E61BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47AC5C8D-311D-4B9A-A985-8567F41E61BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47AC5C8D-311D-4B9A-A985-8567F41E61BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77F0A84A-D3C2-4B39-9B1B-834652947ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F0A84A-D3C2-4B39-9B1B-834652947ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F0A84A-D3C2-4B39-9B1B-834652947ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F0A84A-D3C2-4B39-9B1B-834652947ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

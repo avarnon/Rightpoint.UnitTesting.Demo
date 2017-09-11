@@ -36,6 +36,8 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 
         public async Task DeleteAsync(Guid id)
         {
+            Ensure.That(id, nameof(id)).IsNotEmpty();
+
             await _apiClient.DeleteAsync($"{__addressRoot}/{id}");
         }
 
@@ -46,11 +48,16 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 
         public async Task<ContractModels.PrimaryObject> GetAsync(Guid id)
         {
+            Ensure.That(id, nameof(id)).IsNotEmpty();
+
             return await _apiClient.GetAsync<ContractModels.PrimaryObject>($"{__addressRoot}/{id}");
         }
 
         public async Task<ContractModels.PrimaryObject> UpdateAsync(Guid id, ViewModels.PrimaryObject inputModel)
         {
+            Ensure.That(id, nameof(id)).IsNotEmpty();
+            Ensure.That(inputModel, nameof(inputModel)).IsNotNull();
+
             var contractModel = new ContractModels.PrimaryObject()
             {
                 Description = inputModel.Description,

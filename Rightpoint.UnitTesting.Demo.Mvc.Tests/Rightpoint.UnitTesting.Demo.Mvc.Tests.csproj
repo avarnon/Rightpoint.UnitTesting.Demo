@@ -92,16 +92,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Rightpoint.UnitTesting.Demo.Common.Tests\BinarySerializer.cs">
+      <Link>BinarySerializer.cs</Link>
+    </Compile>
     <Compile Include="App_Start\UnityConfigTests.cs" />
-    <Compile Include="BinarySerializer.cs" />
     <Compile Include="Contracts\Models\PrimaryObjectTests.cs" />
     <Compile Include="Contracts\Models\SecondaryObjectTests.cs" />
     <Compile Include="Controllers\SecondaryObjectsControllerTests.cs" />
     <Compile Include="Controllers\PrimaryObjectsControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
-    <Compile Include="Exceptions\DemoInvalidOperationExceptionTests.cs" />
-    <Compile Include="Exceptions\DemoExceptionTests.cs" />
-    <Compile Include="Exceptions\DemoEntityNotFoundExceptionTests.cs" />
+    <Compile Include="Exceptions\RemoteInvalidOperationExceptionTests.cs" />
+    <Compile Include="Exceptions\RemoteExceptionTests.cs" />
+    <Compile Include="Exceptions\RemoteEntityNotFoundExceptionTests.cs" />
     <Compile Include="Models\PrimaryObjectTests.cs" />
     <Compile Include="Models\SecondaryObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +115,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rightpoint.UnitTesting.Demo.Common\Rightpoint.UnitTesting.Demo.Common.csproj">
+      <Project>{47ac5c8d-311d-4b9a-a985-8567f41e61be}</Project>
+      <Name>Rightpoint.UnitTesting.Demo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rightpoint.UnitTesting.Demo.Mvc\Rightpoint.UnitTesting.Demo.Mvc.csproj">
       <Project>{6cdd5f1b-eaa3-46c4-9e13-3f3a1f249dc5}</Project>
       <Name>Rightpoint.UnitTesting.Demo.Mvc</Name>

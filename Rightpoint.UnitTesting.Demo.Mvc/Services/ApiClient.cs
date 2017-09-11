@@ -12,9 +12,11 @@ using Rightpoint.UnitTesting.Demo.Mvc.Exceptions;
 namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 {
     [ExcludeFromCodeCoverage]
-    public class ApiClient : IApiClient
+    public class ApiClient : IApiClient, IDisposable
     {
+        private const string ContentTypeApplicationJson = "application/json";
         private readonly WebClient _webClient;
+        private bool _disposed = false;
 
         public ApiClient(string baseAddress)
         {
@@ -29,12 +31,13 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
         public async Task<TEntity> CreateAsync<TEntity>(string address, TEntity entity)
             where TEntity : class
         {
+            Ensure.That(this._disposed).WithException(_ => new ObjectDisposedException(nameof(ApiClient))).IsFalse();
             Ensure.That(address, nameof(address)).IsNotNullOrWhiteSpace();
             Ensure.That(entity, nameof(entity)).IsNotNull();
 
             var inputJson = JsonConvert.SerializeObject(entity);
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-            _webClient.Headers[HttpRequestHeader.Accept] = "application/json";
+            _webClient.Headers[HttpRequestHeader.ContentType] = ContentTypeApplicationJson;
+            _webClient.Headers[HttpRequestHeader.Accept] = ContentTypeApplicationJson;
             string outputJson = null;
 
             try
@@ -52,6 +55,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 
         public async Task DeleteAsync(string address)
         {
+            Ensure.That(this._disposed).WithException(_ => new ObjectDisposedException(nameof(ApiClient))).IsFalse();
             Ensure.That(address, nameof(address)).IsNotNullOrWhiteSpace();
 
             try
@@ -68,9 +72,10 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
         public async Task<TEntity> GetAsync<TEntity>(string address)
             where TEntity : class
         {
+            Ensure.That(this._disposed).WithException(_ => new ObjectDisposedException(nameof(ApiClient))).IsFalse();
             Ensure.That(address, nameof(address)).IsNotNullOrWhiteSpace();
 
-            _webClient.Headers[HttpRequestHeader.Accept] = "application/json";
+            _webClient.Headers[HttpRequestHeader.Accept] = ContentTypeApplicationJson;
             string outputJson = null;
 
             try
@@ -89,12 +94,13 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
         public async Task<TEntity> UpdateAsync<TEntity>(string address, TEntity entity)
             where TEntity : class
         {
+            Ensure.That(this._disposed).WithException(_ => new ObjectDisposedException(nameof(ApiClient))).IsFalse();
             Ensure.That(address, nameof(address)).IsNotNullOrWhiteSpace();
             Ensure.That(entity, nameof(entity)).IsNotNull();
 
             var inputJson = JsonConvert.SerializeObject(entity);
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-            _webClient.Headers[HttpRequestHeader.Accept] = "application/json";
+            _webClient.Headers[HttpRequestHeader.ContentType] = ContentTypeApplicationJson;
+            _webClient.Headers[HttpRequestHeader.Accept] = ContentTypeApplicationJson;
             string outputJson = null;
 
             try
@@ -108,6 +114,20 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
             }
 
             return JsonConvert.DeserializeObject<TEntity>(outputJson);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                this._webClient.Dispose();
+                _disposed = true;
+            }
         }
 
         private static async Task HandleWebExcpetion(WebException ex)
@@ -136,11 +156,11 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.NotFound:
-                        throw new DemoEntityNotFoundException(responsePayload, ex);
+                        throw new RemoteEntityNotFoundException(responsePayload, ex);
                     case HttpStatusCode.BadRequest:
-                        throw new DemoInvalidOperationException(responsePayload, ex);
+                        throw new RemoteInvalidOperationException(responsePayload, ex);
                     default:
-                        throw new DemoException(responsePayload, ex);
+                        throw new RemoteException(responsePayload, ex);
                 }
             }
         }

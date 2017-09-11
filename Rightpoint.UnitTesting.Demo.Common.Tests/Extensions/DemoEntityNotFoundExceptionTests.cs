@@ -1,72 +1,72 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rightpoint.UnitTesting.Demo.Mvc.Exceptions;
+using Rightpoint.UnitTesting.Demo.Common.Exceptions;
 
-namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
+namespace Rightpoint.UnitTesting.Demo.Common.Tests.Exceptions
 {
     [TestClass]
-    public class DemoExceptionTests
+    public class DemoEntityNotFoundExceptionTests
     {
         [TestMethod]
-        public void DemoException_Constructor_NoArguments()
+        public void DemoEntityNotFoundException_Constructor_NoArguments()
         {
-            var ex = new DemoException();
+            var ex = new DemoEntityNotFoundException();
 
             Assert.AreEqual("Error in the application.", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageArgument_Null()
+        public void DemoEntityNotFoundException_Constructor_MessageArgument_Null()
         {
-            var ex = new DemoException(null);
+            var ex = new DemoEntityNotFoundException(null);
 
-            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.DemoException' was thrown.", ex.Message);
+            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Common.Exceptions.DemoEntityNotFoundException' was thrown.", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageArgument_Empty()
+        public void DemoEntityNotFoundException_Constructor_MessageArgument_Empty()
         {
-            var ex = new DemoException(string.Empty);
+            var ex = new DemoEntityNotFoundException(string.Empty);
 
             Assert.AreEqual(string.Empty, ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageArgument_WhiteSpace()
+        public void DemoEntityNotFoundException_Constructor_MessageArgument_WhiteSpace()
         {
-            var ex = new DemoException("     ");
+            var ex = new DemoEntityNotFoundException("     ");
 
             Assert.AreEqual("     ", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageArgument_Valid()
+        public void DemoEntityNotFoundException_Constructor_MessageArgument_Valid()
         {
-            var ex = new DemoException("test");
+            var ex = new DemoEntityNotFoundException("test");
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageAndInnerExArgument_NullMessage()
+        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_NullMessage()
         {
-            var ex = new DemoException(null, new Exception("Inner"));
+            var ex = new DemoEntityNotFoundException(null, new Exception("Inner"));
 
-            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.DemoException' was thrown.", ex.Message);
+            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Common.Exceptions.DemoEntityNotFoundException' was thrown.", ex.Message);
             Assert.IsNotNull(ex.InnerException);
             Assert.AreEqual("Inner", ex.InnerException.Message);
             Assert.IsNull(ex.InnerException.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageAndInnerExArgument_EmptyMessage()
+        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_EmptyMessage()
         {
-            var ex = new DemoException(string.Empty, new Exception("Inner"));
+            var ex = new DemoEntityNotFoundException(string.Empty, new Exception("Inner"));
 
             Assert.AreEqual(string.Empty, ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -75,9 +75,9 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageAndInnerExArgument_WhiteSpaceMessage()
+        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_WhiteSpaceMessage()
         {
-            var ex = new DemoException("     ", new Exception("Inner"));
+            var ex = new DemoEntityNotFoundException("     ", new Exception("Inner"));
 
             Assert.AreEqual("     ", ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -86,18 +86,18 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageAndInnerExArgument_NullInnerEx()
+        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_NullInnerEx()
         {
-            var ex = new DemoException("test", null);
+            var ex = new DemoEntityNotFoundException("test", null);
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoException_Constructor_MessageAndInnerExArgument_Valid()
+        public void DemoEntityNotFoundException_Constructor_MessageAndInnerExArgument_Valid()
         {
-            var ex = new DemoException("test", new Exception("Inner"));
+            var ex = new DemoEntityNotFoundException("test", new Exception("Inner"));
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -106,14 +106,14 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoException_Constructor_Serialization()
+        public void DemoEntityNotFoundException_Constructor_Serialization()
         {
-            DemoException inputException = new DemoException("test", new Exception("Inner"));
+            DemoException inputException = new DemoEntityNotFoundException("test", new Exception("Inner"));
 
             byte[] bytes = BinarySerializer.Serialize(inputException);
             Assert.IsNotNull(bytes);
 
-            DemoException deserializedException = BinarySerializer.Deserialize<DemoException>(bytes);
+            DemoEntityNotFoundException deserializedException = BinarySerializer.Deserialize<DemoEntityNotFoundException>(bytes);
 
             Assert.IsNotNull(deserializedException);
             Assert.AreEqual(inputException.Message, deserializedException.Message);

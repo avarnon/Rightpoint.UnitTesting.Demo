@@ -22,7 +22,8 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
             using (var container = UnityConfig.GetConfiguredContainer())
             {
                 var controllerTypes = typeof(UnityConfig).Assembly.GetTypes()
-                    .Where(_ => IsApiControllerType(_))
+                    .Where(_ => IsApiControllerType(_) &&
+                                _.IsAbstract == false)
                     .ToArray();
                 foreach (var type in controllerTypes)
                 {

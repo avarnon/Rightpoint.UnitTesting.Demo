@@ -8,7 +8,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Contracts
 {
     public interface ISecondaryObjectService
     {
-        Task<DomainModels.SecondaryObject> CreateAsync(Guid primaryObjectd, ApiModels.SecondaryObject inputModel);
+        Task<DomainModels.SecondaryObject> CreateAsync(Guid primaryObjectId, ApiModels.SecondaryObject inputModel);
 
         Task DeleteAsync(Guid id);
 

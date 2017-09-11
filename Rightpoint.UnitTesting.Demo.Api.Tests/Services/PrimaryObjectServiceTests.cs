@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Rightpoint.UnitTesting.Demo.Api.Services;
+using Rightpoint.UnitTesting.Demo.Common.Exceptions;
 using Rightpoint.UnitTesting.Demo.Domain.Repositories;
 using ApiModels = Rightpoint.UnitTesting.Demo.Api.Models;
 using DomainModels = Rightpoint.UnitTesting.Demo.Domain.Models;
@@ -115,7 +116,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(DemoEntityNotFoundException))]
         public async Task PrimaryObjectService_DeleteAsync_NotFound()
         {
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
@@ -228,7 +229,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(DemoEntityNotFoundException))]
         public async Task PrimaryObjectService_UpdateAsync_NotFound()
         {
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);

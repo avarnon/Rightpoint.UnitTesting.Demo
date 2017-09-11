@@ -1,72 +1,72 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rightpoint.UnitTesting.Demo.Mvc.Exceptions;
+using Rightpoint.UnitTesting.Demo.Common.Exceptions;
 
-namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
+namespace Rightpoint.UnitTesting.Demo.Common.Tests.Exceptions
 {
     [TestClass]
-    public class DemoInvalidOperationExceptionTests
+    public class DemoExceptionExceptionTests
     {
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_NoArguments()
+        public void DemoException_Constructor_NoArguments()
         {
-            var ex = new DemoInvalidOperationException();
+            var ex = new DemoException();
 
             Assert.AreEqual("Error in the application.", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageArgument_Null()
+        public void DemoException_Constructor_MessageArgument_Null()
         {
-            var ex = new DemoInvalidOperationException(null);
+            var ex = new DemoException(null);
 
-            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.DemoInvalidOperationException' was thrown.", ex.Message);
+            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Common.Exceptions.DemoException' was thrown.", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageArgument_Empty()
+        public void DemoException_Constructor_MessageArgument_Empty()
         {
-            var ex = new DemoInvalidOperationException(string.Empty);
+            var ex = new DemoException(string.Empty);
 
             Assert.AreEqual(string.Empty, ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageArgument_WhiteSpace()
+        public void DemoException_Constructor_MessageArgument_WhiteSpace()
         {
-            var ex = new DemoInvalidOperationException("     ");
+            var ex = new DemoException("     ");
 
             Assert.AreEqual("     ", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageArgument_Valid()
+        public void DemoException_Constructor_MessageArgument_Valid()
         {
-            var ex = new DemoInvalidOperationException("test");
+            var ex = new DemoException("test");
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageAndInnerExArgument_NullMessage()
+        public void DemoException_Constructor_MessageAndInnerExArgument_NullMessage()
         {
-            var ex = new DemoInvalidOperationException(null, new Exception("Inner"));
+            var ex = new DemoException(null, new Exception("Inner"));
 
-            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Mvc.Exceptions.DemoInvalidOperationException' was thrown.", ex.Message);
+            Assert.AreEqual("Exception of type 'Rightpoint.UnitTesting.Demo.Common.Exceptions.DemoException' was thrown.", ex.Message);
             Assert.IsNotNull(ex.InnerException);
             Assert.AreEqual("Inner", ex.InnerException.Message);
             Assert.IsNull(ex.InnerException.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageAndInnerExArgument_EmptyMessage()
+        public void DemoException_Constructor_MessageAndInnerExArgument_EmptyMessage()
         {
-            var ex = new DemoInvalidOperationException(string.Empty, new Exception("Inner"));
+            var ex = new DemoException(string.Empty, new Exception("Inner"));
 
             Assert.AreEqual(string.Empty, ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -75,9 +75,9 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageAndInnerExArgument_WhiteSpaceMessage()
+        public void DemoException_Constructor_MessageAndInnerExArgument_WhiteSpaceMessage()
         {
-            var ex = new DemoInvalidOperationException("     ", new Exception("Inner"));
+            var ex = new DemoException("     ", new Exception("Inner"));
 
             Assert.AreEqual("     ", ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -86,18 +86,18 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageAndInnerExArgument_NullInnerEx()
+        public void DemoException_Constructor_MessageAndInnerExArgument_NullInnerEx()
         {
-            var ex = new DemoInvalidOperationException("test", null);
+            var ex = new DemoException("test", null);
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNull(ex.InnerException);
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_MessageAndInnerExArgument_Valid()
+        public void DemoException_Constructor_MessageAndInnerExArgument_Valid()
         {
-            var ex = new DemoInvalidOperationException("test", new Exception("Inner"));
+            var ex = new DemoException("test", new Exception("Inner"));
 
             Assert.AreEqual("test", ex.Message);
             Assert.IsNotNull(ex.InnerException);
@@ -106,14 +106,14 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Exceptions
         }
 
         [TestMethod]
-        public void DemoInvalidOperationException_Constructor_Serialization()
+        public void DemoException_Constructor_Serialization()
         {
-            DemoInvalidOperationException inputException = new DemoInvalidOperationException("test", new Exception("Inner"));
+            DemoException inputException = new DemoException("test", new Exception("Inner"));
 
             byte[] bytes = BinarySerializer.Serialize(inputException);
             Assert.IsNotNull(bytes);
 
-            DemoInvalidOperationException deserializedException = BinarySerializer.Deserialize<DemoInvalidOperationException>(bytes);
+            DemoException deserializedException = BinarySerializer.Deserialize<DemoException>(bytes);
 
             Assert.IsNotNull(deserializedException);
             Assert.AreEqual(inputException.Message, deserializedException.Message);

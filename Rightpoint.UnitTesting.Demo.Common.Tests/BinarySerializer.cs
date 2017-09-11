@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Rightpoint.UnitTesting.Demo.Mvc.Tests
+namespace Rightpoint.UnitTesting.Demo.Common.Tests
 {
     [ExcludeFromCodeCoverage]
     public static class BinarySerializer

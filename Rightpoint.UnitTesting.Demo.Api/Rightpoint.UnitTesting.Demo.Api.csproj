@@ -188,16 +188,21 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\DemoExceptionFilterAttribute.cs" />
+    <Compile Include="Contracts\IExceptionMapper.cs" />
     <Compile Include="Contracts\ISecondaryObjectService.cs" />
     <Compile Include="Contracts\IPrimaryObjectService.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\SecondaryObjectsController.cs" />
     <Compile Include="Controllers\PrimaryObjectsController.cs" />
+    <Compile Include="Extensions\FilterAttributeExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\SecondaryObject.cs" />
     <Compile Include="Models\PrimaryObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ExceptionMapper.cs" />
     <Compile Include="Services\SecondaryObjectService.cs" />
     <Compile Include="Services\PrimaryObjectService.cs" />
   </ItemGroup>
@@ -222,6 +227,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rightpoint.UnitTesting.Demo.Common\Rightpoint.UnitTesting.Demo.Common.csproj">
+      <Project>{47ac5c8d-311d-4b9a-a985-8567f41e61be}</Project>
+      <Name>Rightpoint.UnitTesting.Demo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rightpoint.UnitTesting.Demo.Domain\Rightpoint.UnitTesting.Demo.Domain.csproj">
       <Project>{c3e9ade8-ff75-4d17-940a-9f338ef86c31}</Project>
       <Name>Rightpoint.UnitTesting.Demo.Domain</Name>
