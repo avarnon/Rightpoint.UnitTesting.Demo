@@ -86,7 +86,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SecondaryObjectServiceTests.cs" />
     <Compile Include="Services\PrimaryObjectServiceTests.cs" />
-    <Compile Include="Services\ExceptionMapperTests.cs" />
+    <Compile Include="Services\ApiExceptionMapperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

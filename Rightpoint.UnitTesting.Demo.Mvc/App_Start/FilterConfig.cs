@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using System.Web.Mvc;
+using Rightpoint.UnitTesting.Demo.Mvc.Attributes;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc
 {
@@ -9,7 +10,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new DemoHandleErrorAttribute());
         }
     }
 }

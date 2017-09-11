@@ -13,7 +13,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Attributes
         {
             base.OnException(actionExecutedContext);
 
-            IExceptionMapper exceptionMapper = this.Resolve<IExceptionMapper>(actionExecutedContext.Request);
+            IApiExceptionMapper exceptionMapper = this.Resolve<IApiExceptionMapper>(actionExecutedContext.Request);
             exceptionMapper.MapException(actionExecutedContext);
         }
     }

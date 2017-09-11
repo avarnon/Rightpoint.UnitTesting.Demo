@@ -9,7 +9,7 @@ using Rightpoint.UnitTesting.Demo.Mvc.Contracts;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Controllers
 {
-    public class SecondaryObjectsController : Controller
+    public class SecondaryObjectsController : BaseController
     {
         private readonly ISecondaryObjectService _secondaryObjectService;
 

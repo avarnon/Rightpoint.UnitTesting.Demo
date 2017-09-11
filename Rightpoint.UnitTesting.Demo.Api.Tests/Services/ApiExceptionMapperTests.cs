@@ -11,35 +11,35 @@ using Rightpoint.UnitTesting.Demo.Common.Exceptions;
 namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
 {
     [TestClass]
-    public class ExceptionMapperTests
+    public class ApiExceptionMapperTests
     {
         [TestMethod]
-        public void ExceptionMapper_Constructor()
+        public void ApiExceptionMapper_Constructor()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_Existing_Exception()
+        public void ApiExceptionMapper_MapException_Existing_Exception()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(null);
             actionExecutedContext.Exception = new HttpResponseException(HttpStatusCode.InternalServerError);
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.InternalServerError, actionExecutedContext.Response.StatusCode);
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_AggregateException()
+        public void ApiExceptionMapper_MapException_AggregateException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var exception = new AggregateException("Test 1", new Exception("Test 2", new Exception("Test 2.1")), new Exception("Test 3", new Exception("Test 3.1")));
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(exception);
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.InternalServerError, actionExecutedContext.Response.StatusCode);
@@ -47,12 +47,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_DemoEntityNotFoundException()
+        public void ApiExceptionMapper_MapException_DemoEntityNotFoundException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(new DemoEntityNotFoundException("Testing"));
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.NotFound, actionExecutedContext.Response.StatusCode);
@@ -60,12 +60,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_DemoException()
+        public void ApiExceptionMapper_MapException_DemoException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(new DemoException("Testing"));
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.InternalServerError, actionExecutedContext.Response.StatusCode);
@@ -73,12 +73,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_DemoInputValidationException()
+        public void ApiExceptionMapper_MapException_DemoInputValidationException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(new DemoInputValidationException("Testing"));
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.BadRequest, actionExecutedContext.Response.StatusCode);
@@ -86,12 +86,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_DemoInvalidOperationException()
+        public void ApiExceptionMapper_MapException_DemoInvalidOperationException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(new DemoInvalidOperationException("Testing"));
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.BadRequest, actionExecutedContext.Response.StatusCode);
@@ -99,12 +99,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_NullException()
+        public void ApiExceptionMapper_MapException_NullException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(null);
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.InternalServerError, actionExecutedContext.Response.StatusCode);
@@ -112,12 +112,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_SystemException()
+        public void ApiExceptionMapper_MapException_SystemException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(new Exception("Testing"));
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.InternalServerError, actionExecutedContext.Response.StatusCode);
@@ -125,13 +125,13 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public void ExceptionMapper_MapException_SystemException_InnerException()
+        public void ApiExceptionMapper_MapException_SystemException_InnerException()
         {
-            var exceptionMapper = new ExceptionMapper();
+            var apiExceptionMapper = new ApiExceptionMapper();
             var exception = new Exception("Test 1", new Exception("Test 2"));
             var actionExecutedContext = this.CreateExecutedContextWithStatusCode(exception);
 
-            exceptionMapper.MapException(actionExecutedContext);
+            apiExceptionMapper.MapException(actionExecutedContext);
 
             Assert.IsNotNull(actionExecutedContext.Response);
             Assert.AreEqual(HttpStatusCode.InternalServerError, actionExecutedContext.Response.StatusCode);
@@ -143,12 +143,12 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
             var request = new HttpRequestMessage();
             request.SetConfiguration(new HttpConfiguration());
 
-            var actionContext = new HttpActionContext
+            var actionContext = new HttpActionContext()
             {
-                ControllerContext = new HttpControllerContext
+                ControllerContext = new HttpControllerContext()
                 {
-                    Request = request
-                }
+                    Request = request,
+                },
             };
 
             return new HttpActionExecutedContext(actionContext, exception)
@@ -156,13 +156,13 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
                 Request =
                 {
                     Content = new StringContent("Testing In"),
-                    RequestUri = new Uri("http://localhost")
+                    RequestUri = new Uri("http://localhost"),
                 },
-                Response = new HttpResponseMessage
+                Response = new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("Testing Out")
-                }
+                    Content = new StringContent("Testing Out"),
+                },
             };
         }
     }

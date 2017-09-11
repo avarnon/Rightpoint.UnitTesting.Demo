@@ -9,7 +9,7 @@ using Rightpoint.UnitTesting.Demo.Mvc.Contracts;
 namespace Rightpoint.UnitTesting.Demo.Mvc.Controllers
 {
     [RoutePrefix("primaryobjects")]
-    public class PrimaryObjectsController : Controller
+    public class PrimaryObjectsController : BaseController
     {
         private readonly IPrimaryObjectService _primaryObjectService;
         private readonly ISecondaryObjectService _secondaryObjectService;

@@ -47,6 +47,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.App_Start
                 new HierarchicalLifetimeManager(),
                 new InjectionConstructor(
                     new ResolvedParameter<string>("AppSettings:ApiUrl")));
+            container.RegisterType<IMvcExceptionMapper, MvcExceptionMapper>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectService, PrimaryObjectService>(new HierarchicalLifetimeManager());
             container.RegisterType<ISecondaryObjectService, SecondaryObjectService>(new HierarchicalLifetimeManager());
         }

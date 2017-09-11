@@ -37,7 +37,7 @@ namespace Rightpoint.UnitTesting.Demo.Api
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<DemoContext>(new HierarchicalLifetimeManager());
-            container.RegisterType<IExceptionMapper, ExceptionMapper>(new HierarchicalLifetimeManager());
+            container.RegisterType<IApiExceptionMapper, ApiExceptionMapper>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectRepository, PrimaryObjectRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectService, PrimaryObjectService>(new HierarchicalLifetimeManager());
             container.RegisterType<ISecondaryObjectRepository, SecondaryObjectRepository>(new HierarchicalLifetimeManager());

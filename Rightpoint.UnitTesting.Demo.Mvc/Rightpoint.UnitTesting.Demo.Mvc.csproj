@@ -169,11 +169,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Attributes\DemoHandleErrorAttribute.cs" />
     <Compile Include="Contracts\IApiClient.cs" />
+    <Compile Include="Contracts\IMvcExceptionMapper.cs" />
     <Compile Include="Contracts\IPrimaryObjectService.cs" />
     <Compile Include="Contracts\ISecondaryObjectService.cs" />
     <Compile Include="Contracts\Models\PrimaryObject.cs" />
     <Compile Include="Contracts\Models\SecondaryObject.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrimaryObjectsController.cs" />
     <Compile Include="Controllers\SecondaryObjectsController.cs" />
@@ -187,6 +190,7 @@
     <Compile Include="Models\SecondaryObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApiClient.cs" />
+    <Compile Include="Services\MvcExceptionMapper.cs" />
     <Compile Include="Services\PrimaryObjectService.cs" />
     <Compile Include="Services\SecondaryObjectService.cs" />
   </ItemGroup>

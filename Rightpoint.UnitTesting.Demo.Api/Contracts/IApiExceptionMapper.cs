@@ -2,7 +2,7 @@
 
 namespace Rightpoint.UnitTesting.Demo.Api.Contracts
 {
-    public interface IExceptionMapper
+    public interface IApiExceptionMapper
     {
         void MapException(HttpActionExecutedContext actionExecutedContext);
     }

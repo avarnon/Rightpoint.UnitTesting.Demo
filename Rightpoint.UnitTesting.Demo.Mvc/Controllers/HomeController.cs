@@ -3,7 +3,7 @@
 namespace Rightpoint.UnitTesting.Demo.Mvc.Controllers
 {
     [RoutePrefix("")]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET:
         [HttpGet]

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Filters;
-using Rightpoint.UnitTesting.Demo.Api.Contracts;
+using System.Web.Mvc;
 using Rightpoint.UnitTesting.Demo.Common.Exceptions;
+using Rightpoint.UnitTesting.Demo.Mvc.Contracts;
+using Rightpoint.UnitTesting.Demo.Mvc.Controllers;
+using Rightpoint.UnitTesting.Demo.Mvc.Exceptions;
 
-namespace Rightpoint.UnitTesting.Demo.Api.Services
+namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 {
-    public class ExceptionMapper : IExceptionMapper
+    public class MvcExceptionMapper : IMvcExceptionMapper
     {
         private const string DefaultResponseMessage = "Internal Server Error";
         private const HttpStatusCode DefaultStatusCode = HttpStatusCode.InternalServerError;
@@ -23,6 +22,9 @@ namespace Rightpoint.UnitTesting.Demo.Api.Services
                     { typeof(DemoException), "Internal Server Error" },
                     { typeof(DemoInvalidOperationException), "Bad Request" },
                     { typeof(DemoInputValidationException), "Bad Request" },
+                    { typeof(RemoteEntityNotFoundException), "Not Found" },
+                    { typeof(RemoteException), "Internal Server Error" },
+                    { typeof(RemoteInvalidOperationException), "Bad Request" },
                 });
 
         private static readonly IDictionary<Type, HttpStatusCode> __exceptionTypeMap = new ReadOnlyDictionary<Type, HttpStatusCode>(
@@ -32,23 +34,30 @@ namespace Rightpoint.UnitTesting.Demo.Api.Services
                     { typeof(DemoException), HttpStatusCode.InternalServerError },
                     { typeof(DemoInputValidationException), HttpStatusCode.BadRequest },
                     { typeof(DemoInvalidOperationException), HttpStatusCode.BadRequest },
+                    { typeof(RemoteEntityNotFoundException), HttpStatusCode.NotFound },
+                    { typeof(RemoteException), HttpStatusCode.InternalServerError },
+                    { typeof(RemoteInvalidOperationException), HttpStatusCode.BadRequest },
                 });
 
-        public void MapException(HttpActionExecutedContext actionExecutedContext)
+        public void SetResponse(ExceptionContext filterContext)
         {
-            var httpResponseException = actionExecutedContext.Exception as HttpResponseException;
+            var exception = filterContext.Exception;
 
-            if (httpResponseException != null)
+            if (exception == null)
             {
-                actionExecutedContext.Response = httpResponseException.Response;
+                exception = new Exception("Server Error");
             }
-            else
-            {
-                var exception = actionExecutedContext.Exception;
-                var exceptionType = exception?.GetType();
 
-                actionExecutedContext.Response = GetDefaultResponse(actionExecutedContext);
-            }
+            var controller = filterContext.Controller as BaseController;
+            var urlHelper = controller.Url;
+            var errorUrl = urlHelper.Action("Error");
+            var exceptionType = exception.GetType();
+            var statusCode = GetExactMatchStatusCode(exceptionType) ?? DefaultStatusCode;
+            var responseMessage = GetExactMatchResponseMessage(exceptionType) ?? DefaultResponseMessage;
+
+            filterContext.Result = new RedirectResult(errorUrl);
+            filterContext.HttpContext.Response.StatusCode = (int)statusCode;
+            filterContext.HttpContext.Response.StatusDescription = responseMessage;
         }
 
         private static HttpStatusCode? GetExactMatchStatusCode(Type exceptionType)
@@ -75,26 +84,6 @@ namespace Rightpoint.UnitTesting.Demo.Api.Services
             {
                 return null;
             }
-        }
-
-        private static HttpResponseMessage GetDefaultResponse(HttpActionExecutedContext actionExecutedContext)
-        {
-            var exception = actionExecutedContext.Exception;
-
-            if (exception == null)
-            {
-                exception = new Exception("Server Error");
-            }
-
-            var exceptionType = exception.GetType();
-            var statusCode = GetExactMatchStatusCode(exceptionType) ?? DefaultStatusCode;
-            var responseMessage = GetExactMatchResponseMessage(exceptionType) ?? DefaultResponseMessage;
-
-            return actionExecutedContext.Request.CreateResponse(statusCode, new
-            {
-                Code = (int)statusCode,
-                Message = responseMessage,
-            });
         }
     }
 }
