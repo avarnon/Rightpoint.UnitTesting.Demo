@@ -59,6 +59,8 @@ namespace Rightpoint.UnitTesting.Demo.Api.Services
 
         public async Task DeleteAsync(Guid id)
         {
+            Ensure.That(id, nameof(id)).IsNotEmpty();
+
             var domainSecondaryObject = await _secondaryObjectRepository.GetByIdAsync(id);
 
             Ensure.That(domainSecondaryObject, nameof(domainSecondaryObject))
@@ -77,6 +79,8 @@ namespace Rightpoint.UnitTesting.Demo.Api.Services
 
         public async Task<DomainModels.SecondaryObject> GetAsync(Guid id)
         {
+            Ensure.That(id, nameof(id)).IsNotEmpty();
+
             return await _secondaryObjectRepository.GetByIdAsync(id);
         }
 

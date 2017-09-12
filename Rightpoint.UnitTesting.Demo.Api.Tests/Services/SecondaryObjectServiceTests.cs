@@ -84,6 +84,103 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_CreateAsync_InputModel_Description_Null()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = null,
+                Name = "New Name",
+            };
+            _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.PrimaryObject(id));
+            var destination = await secondaryObjectService.CreateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_CreateAsync_InputModel_Description_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = string.Empty,
+                Name = "New Name",
+            };
+            _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.PrimaryObject(id));
+            var destination = await secondaryObjectService.CreateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_CreateAsync_InputModel_Description_WhiteSpace()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "     ",
+                Name = "New Name",
+            };
+            _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.PrimaryObject(id));
+            var destination = await secondaryObjectService.CreateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_CreateAsync_InputModel_Name_Null()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = null,
+            };
+            _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.PrimaryObject(id));
+            var destination = await secondaryObjectService.CreateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_CreateAsync_InputModel_Name_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = string.Empty,
+            };
+            _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.PrimaryObject(id));
+            var destination = await secondaryObjectService.CreateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_CreateAsync_InputModel_Name_WhiteSpace()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = "     ",
+            };
+            _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.PrimaryObject(id));
+            var destination = await secondaryObjectService.CreateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task SecondaryObjectService_CreateAsync_PrimaryObjectId_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = "New Name",
+            };
+            var destination = await secondaryObjectService.CreateAsync(Guid.Empty, source);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(DemoEntityNotFoundException))]
         public async Task SecondaryObjectService_CreateAsync_PrimaryObject_NotFound()
         {
@@ -105,6 +202,14 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
             _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id));
             await secondaryObjectService.DeleteAsync(source);
             _unitOfWork.Verify(_ => _.SaveChangesAsync(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task SecondaryObjectService_DeleteAsync_Id_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            await secondaryObjectService.DeleteAsync(Guid.Empty);
         }
 
         [TestMethod]
@@ -152,6 +257,14 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task SecondaryObjectService_GetByIdAsync_Id_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var destination = await secondaryObjectService.GetAsync(Guid.Empty);
+        }
+
+        [TestMethod]
         public async Task SecondaryObjectService_GetByIdAsync_NotFound()
         {
             var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
@@ -192,6 +305,20 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task SecondaryObjectService_UpdateAsync_Id_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = "New Name",
+            };
+
+            await secondaryObjectService.UpdateAsync(Guid.Empty, source);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task SecondaryObjectService_UpdateAsync_InputModel_Null()
         {
@@ -199,6 +326,156 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
             ApiModels.SecondaryObject source = null;
 
             await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_UpdateAsync_InputModel_Description_Null()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = null,
+                Name = "New Name",
+            };
+
+            _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id)
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                    PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                    {
+                        Description = "Description",
+                        Name = "Name",
+                    },
+                });
+            var destination = await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_UpdateAsync_InputModel_Description_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = string.Empty,
+                Name = "New Name",
+            };
+
+            _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id)
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                    PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                    {
+                        Description = "Description",
+                        Name = "Name",
+                    },
+                });
+            var destination = await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_UpdateAsync_InputModel_Description_WhiteSpace()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "     ",
+                Name = "New Name",
+            };
+
+            _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id)
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                    PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                    {
+                        Description = "Description",
+                        Name = "Name",
+                    },
+                });
+            var destination = await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_UpdateAsync_InputModel_Name_Null()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = null,
+            };
+
+            _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id)
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                    PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                    {
+                        Description = "Description",
+                        Name = "Name",
+                    },
+                });
+            var destination = await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_UpdateAsync_InputModel_Name_Empty()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = string.Empty,
+            };
+
+            _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id)
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                    PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                    {
+                        Description = "Description",
+                        Name = "Name",
+                    },
+                });
+            var destination = await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DemoInputValidationException))]
+        public async Task SecondaryObjectService_UpdateAsync_InputModel_Name_WhiteSpace()
+        {
+            var secondaryObjectService = new SecondaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
+            var source = new ApiModels.SecondaryObject()
+            {
+                Description = "New Description",
+                Name = "     ",
+            };
+
+            _secondaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) => new DomainModels.SecondaryObject(id)
+                {
+                    Description = "Description 1",
+                    Name = "Name 1",
+                    PrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
+                    {
+                        Description = "Description",
+                        Name = "Name",
+                    },
+                });
+            var destination = await secondaryObjectService.UpdateAsync(Guid.NewGuid(), source);
         }
 
         [TestMethod]
