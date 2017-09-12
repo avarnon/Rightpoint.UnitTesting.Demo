@@ -23,18 +23,21 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public void SecondaryObjectService_Constructor_ApiClient_Null()
         {
+            // This test verifies that the service will not accept null dependencies
             var service = new SecondaryObjectService(null);
         }
 
         [TestMethod]
         public void SecondaryObjectService_Constructor_Valid()
         {
+            // This test verifies that the service can be constructed successfully
             var service = new SecondaryObjectService(_apiClient.Object);
         }
 
         [TestMethod]
         public async Task SecondaryObjectService_CreateAsync()
         {
+            // This test verifies that CreateAsync works with valid inputs
             var service = new SecondaryObjectService(_apiClient.Object);
             _apiClient.Setup(_ => _.CreateAsync(It.IsAny<string>(), It.IsAny<Mvc.Contracts.Models.SecondaryObject>()))
                 .ReturnsAsync(new Mvc.Contracts.Models.SecondaryObject());
@@ -45,6 +48,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Services
         [TestMethod]
         public async Task SecondaryObjectService_DeleteAsync()
         {
+            // This test verifies that DeleteAsync works with valid inputs
             var service = new SecondaryObjectService(_apiClient.Object);
             await service.DeleteAsync(Guid.NewGuid());
         }
@@ -52,6 +56,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Services
         [TestMethod]
         public async Task SecondaryObjectService_GetAllAsync()
         {
+            // This test verifies that GetAllAsync works with valid inputs
             var service = new SecondaryObjectService(_apiClient.Object);
             _apiClient.Setup(_ => _.GetAsync<IEnumerable<Mvc.Contracts.Models.SecondaryObject>>(It.IsAny<string>()))
                 .ReturnsAsync(new Mvc.Contracts.Models.SecondaryObject[0]);
@@ -62,6 +67,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Services
         [TestMethod]
         public async Task SecondaryObjectService_GetAsync()
         {
+            // This test verifies that GetAsync works with valid inputs
             var service = new SecondaryObjectService(_apiClient.Object);
             _apiClient.Setup(_ => _.GetAsync<Mvc.Contracts.Models.SecondaryObject>(It.IsAny<string>()))
                 .ReturnsAsync(new Mvc.Contracts.Models.SecondaryObject());
@@ -72,6 +78,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Services
         [TestMethod]
         public async Task SecondaryObjectService_UpdateAsync()
         {
+            // This test verifies that UpdateAsync works with valid inputs
             var service = new SecondaryObjectService(_apiClient.Object);
             _apiClient.Setup(_ => _.UpdateAsync(It.IsAny<string>(), It.IsAny<Mvc.Contracts.Models.SecondaryObject>()))
                 .ReturnsAsync(new Mvc.Contracts.Models.SecondaryObject());

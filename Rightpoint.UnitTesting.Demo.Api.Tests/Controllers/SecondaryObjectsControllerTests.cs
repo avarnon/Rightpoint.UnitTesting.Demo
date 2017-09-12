@@ -28,18 +28,21 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [ExpectedException(typeof(ArgumentNullException))]
         public void SecondaryObjectsController_Constructor_SecondaryObjectService_Null()
         {
+            // This test verifies that the controller will not accept null dependencies
             var secondaryObjectsController = new SecondaryObjectsController(null);
         }
 
         [TestMethod]
         public void SecondaryObjectsController_Constructor_Valid()
         {
+            // This test verifies that the controller can be constructed successfully
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
         }
 
         [TestMethod]
         public async Task SecondaryObjectsController_CreateAsync_Valid()
         {
+            // This test verifies that the controller returns the correct result when ISecondaryObjectService.CreateAsync returns an object
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             var sourceSecondaryObject = new ApiModels.SecondaryObject()
             {
@@ -56,6 +59,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_CreateAsync_NotCreated()
         {
+            // This test verifies that the controller throws the correct HttpResponseException when no object is returned from ISecondaryObjectService.CreateAsync
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             ApiModels.SecondaryObject sourceSecondaryObject = null;
 
@@ -64,6 +68,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await secondaryObjectsController.CreateAsync(Guid.NewGuid(), sourceSecondaryObject);
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {
@@ -75,6 +80,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_DeleteAsync()
         {
+            // This test verifies that the controller does not throw an error when deleting an object
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             await secondaryObjectsController.DeleteAsync(Guid.NewGuid());
         }
@@ -82,6 +88,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_GetAllAsync_Found()
         {
+            // This test verifies that the controller does not throw an error when getting all objects
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             var source = new List<DomainModels.SecondaryObject>()
             {
@@ -135,6 +142,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_GetAllAsync_NotFound()
         {
+            // This test verifies that the controller does not throw an error when getting all objects and null is returned from the service
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             ICollection<DomainModels.SecondaryObject> source = null;
 
@@ -143,6 +151,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await secondaryObjectsController.GetAllAsync();
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {
@@ -154,6 +163,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_GetAsync_Found()
         {
+            // This test verifies that the controller does not throw an error when get returns an object
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             var sourceSecondaryObject = new DomainModels.SecondaryObject(Guid.NewGuid())
             {
@@ -185,6 +195,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_GetAsync_NotFound()
         {
+            // This test verifies that the controller throws the correct HttpResponseException when get does not return an object
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             DomainModels.SecondaryObject sourceSecondaryObject = null;
 
@@ -193,6 +204,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await secondaryObjectsController.GetAsync(Guid.NewGuid());
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {
@@ -204,6 +216,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_UpdateAsync_Found()
         {
+            // This test verifies that the controller does not throw an error when updating a valid object
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             var sourceSecondaryObject = new DomainModels.SecondaryObject(Guid.NewGuid())
             {
@@ -235,6 +248,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task SecondaryObjectsController_UpdateAsync_NotFound()
         {
+            // This test verifies that the controller throws the correct HttpResponseException when a non-existant object is updated
             var secondaryObjectsController = new SecondaryObjectsController(_secondaryObjectService.Object);
             DomainModels.SecondaryObject sourceSecondaryObject = null;
 
@@ -243,6 +257,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await secondaryObjectsController.UpdateAsync(Guid.NewGuid(), new ApiModels.SecondaryObject());
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {

@@ -17,12 +17,14 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Repositories
         [ExpectedException(typeof(ArgumentNullException))]
         public void SecondaryObjectRepository_Constructor_Context_Null()
         {
+            // This test verifies that the repository will not accept null dependencies
             var repository = this.ConstructRepository(null);
         }
 
         [TestMethod]
         public void SecondaryObjectRepository_Constructor_Valid()
         {
+            // This test verifies that the repository can be constructed successfully
             var repository = this.ConstructRepository(this.Context.Object);
         }
 

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests
 {
     /// <summary>
-    /// Test DB Set.
+    /// Helper class for mocking DbSets.
     /// </summary>
     /// <typeparam name="TEntity">The type of the inner objects</typeparam>
     /// <remarks>From https://msdn.microsoft.com/en-us/data/dn314431</remarks>
+    [ExcludeFromCodeCoverage]
     public class TestDbSet<TEntity> : DbSet<TEntity>, IQueryable, IEnumerable<TEntity>, IDbAsyncEnumerable<TEntity>
             where TEntity : class
     {

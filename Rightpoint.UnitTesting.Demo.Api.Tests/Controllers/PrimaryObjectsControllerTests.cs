@@ -28,18 +28,21 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [ExpectedException(typeof(ArgumentNullException))]
         public void PrimaryObjectsController_Constructor_PrimaryObjectService_Null()
         {
+            // This test verifies that the controller will not accept null dependencies
             var primaryObjectsController = new PrimaryObjectsController(null);
         }
 
         [TestMethod]
         public void PrimaryObjectsController_Constructor_Valid()
         {
+            // This test verifies that the controller can be constructed successfully
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
         }
 
         [TestMethod]
         public async Task PrimaryObjectsController_CreateAsync_Valid()
         {
+            // This test verifies that the controller returns the correct result when IPrimaryObjectService.CreateAsync returns an object
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             var sourcePrimaryObject = new ApiModels.PrimaryObject()
             {
@@ -56,6 +59,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_CreateAsync_NotCreated()
         {
+            // This test verifies that the controller throws the correct HttpResponseException when no object is returned from IPrimaryObjectService.CreateAsync
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             ApiModels.PrimaryObject sourcePrimaryObject = null;
 
@@ -64,6 +68,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await primaryObjectsController.CreateAsync(sourcePrimaryObject);
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {
@@ -75,6 +80,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_DeleteAsync()
         {
+            // This test verifies that the controller does not throw an error when deleting an object
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             await primaryObjectsController.DeleteAsync(Guid.NewGuid());
         }
@@ -82,6 +88,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_GetAllAsync_Found()
         {
+            // This test verifies that the controller does not throw an error when getting all objects
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             var source = new List<DomainModels.PrimaryObject>()
             {
@@ -160,6 +167,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_GetAllAsync_NotFound()
         {
+            // This test verifies that the controller does not throw an error when getting all objects and null is returned from the service
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             ICollection<DomainModels.PrimaryObject> source = null;
 
@@ -168,6 +176,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await primaryObjectsController.GetAllAsync();
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {
@@ -179,6 +188,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_GetAsync_Found()
         {
+            // This test verifies that the controller does not throw an error when get returns an object
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             var sourcePrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
             {
@@ -227,6 +237,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_GetAsync_NotFound()
         {
+            // This test verifies that the controller throws the correct HttpResponseException when get does not return an object
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             DomainModels.PrimaryObject sourcePrimaryObject = null;
 
@@ -235,6 +246,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await primaryObjectsController.GetAsync(Guid.NewGuid());
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {
@@ -246,6 +258,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_UpdateAsync_Found()
         {
+            // This test verifies that the controller does not throw an error when updating a valid object
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             var sourcePrimaryObject = new DomainModels.PrimaryObject(Guid.NewGuid())
             {
@@ -294,6 +307,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
         [TestMethod]
         public async Task PrimaryObjectsController_UpdateAsync_NotFound()
         {
+            // This test verifies that the controller throws the correct HttpResponseException when a non-existant object is updated
             var primaryObjectsController = new PrimaryObjectsController(_primaryObjectService.Object);
             DomainModels.PrimaryObject sourcePrimaryObject = null;
 
@@ -302,6 +316,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Controllers
             try
             {
                 await primaryObjectsController.UpdateAsync(Guid.NewGuid(), new ApiModels.PrimaryObject());
+                Assert.Fail();
             }
             catch (HttpResponseException ex)
             {

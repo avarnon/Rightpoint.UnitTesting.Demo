@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests
 {
     /// <summary>
-    /// Test DbAsyncEnumerator.
+    /// Helper class for mocking IDbAsyncEnumerators.
     /// </summary>
     /// <typeparam name="T">The type of the inner objects</typeparam>
     /// <remarks>From https://msdn.microsoft.com/en-us/data/dn314431</remarks>
+    [ExcludeFromCodeCoverage]
     public class TestDbAsyncEnumerator<T> : IDbAsyncEnumerator<T>
     {
         private readonly IEnumerator<T> _inner;

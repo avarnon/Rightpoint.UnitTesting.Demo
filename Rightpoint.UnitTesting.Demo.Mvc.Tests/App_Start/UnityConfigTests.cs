@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rightpoint.UnitTesting.Demo.Mvc.App_Start;
+using Rightpoint.UnitTesting.Demo.Mvc.Controllers;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
 {
@@ -13,6 +14,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
         [TestMethod]
         public void UnityConfig_GetConfiguredContainer()
         {
+            // This test verifies that your Unity registration logic does not error out.
             var container = UnityConfig.GetConfiguredContainer();
             Assert.IsNotNull(container);
         }
@@ -20,6 +22,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
         [TestMethod]
         public void UnityConfig_ResolveControllers()
         {
+            // This test verifies that all of your controllers can be resolved successfully.
             using (var container = UnityConfig.GetConfiguredContainer())
             {
                 container.RegisterInstance<string>("AppSettings:ApiUrl", "https://www.fakeurl.com");
@@ -31,8 +34,8 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
                 {
                     var resolvedObject = container.Resolve(type);
                     Assert.IsNotNull(resolvedObject);
-                    var apiController = resolvedObject as Controller;
-                    Assert.IsNotNull(apiController);
+                    var baseController = resolvedObject as BaseController;
+                    Assert.IsNotNull(baseController);
                 }
             }
         }
@@ -43,7 +46,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
             {
                 return false;
             }
-            else if (type == typeof(Controller))
+            else if (type == typeof(BaseController))
             {
                 return true;
             }
@@ -51,7 +54,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.App_Start
             {
                 return false;
             }
-            else if (type.BaseType == typeof(Controller))
+            else if (type.BaseType == typeof(BaseController))
             {
                 return true;
             }

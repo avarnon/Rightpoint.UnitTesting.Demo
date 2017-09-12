@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Rightpoint.UnitTesting.Demo.Mvc.Contracts;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Attributes
 {
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
     public class DemoHandleErrorAttribute : HandleErrorAttribute
     {

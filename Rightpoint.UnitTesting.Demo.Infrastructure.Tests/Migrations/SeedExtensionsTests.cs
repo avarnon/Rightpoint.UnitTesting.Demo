@@ -23,6 +23,7 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Migrations
         [TestMethod]
         public void SeedExtensions_AddPrimaryObjects_DbSet_Empty()
         {
+            // This test verifies that items were seeded into the DB set when the DB set is initially empty
             var modelDbSet = new TestDbSet<PrimaryObject>();
             var source = new List<PrimaryObject>();
             modelDbSet.AddRange(source);
@@ -37,6 +38,7 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Migrations
         [TestMethod]
         public void SeedExtensions_AddPrimaryObjects_DbSet_HasItems()
         {
+            // This test verifies that no items were seeded into the DB set when the DB set initially has items
             var modelDbSet = new TestDbSet<PrimaryObject>();
             var source = new List<PrimaryObject>()
             {
@@ -54,6 +56,7 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Migrations
         [TestMethod]
         public void SeedExtensions_AddSecondaryObjects_DbSet_Empty()
         {
+            // This test verifies that items were seeded into the DB set when the DB set is initially empty
             var modelDbSetPrimary = new TestDbSet<PrimaryObject>();
             var modelDbSetSecondary = new TestDbSet<SecondaryObject>();
             var source = new List<SecondaryObject>();
@@ -77,6 +80,7 @@ namespace Rightpoint.UnitTesting.Demo.Infrastructure.Tests.Migrations
         [TestMethod]
         public void SeedExtensions_AddSecondaryObjects_DbSet_HasItems()
         {
+            // This test verifies that no items were seeded into the DB set when the DB set initially has items
             var modelDbSetPrimary = new TestDbSet<PrimaryObject>();
             var modelDbSetSecondary = new TestDbSet<SecondaryObject>();
             var source = new List<SecondaryObject>()

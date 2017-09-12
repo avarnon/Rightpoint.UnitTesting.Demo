@@ -4,6 +4,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Rightpoint.UnitTesting.Demo.Common.Tests
 {
+    /// <summary>
+    /// Helper class for testing binary serialization
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public static class BinarySerializer
     {

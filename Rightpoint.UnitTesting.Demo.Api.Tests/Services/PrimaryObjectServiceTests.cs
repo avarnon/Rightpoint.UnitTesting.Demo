@@ -30,6 +30,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [TestMethod]
         public void PrimaryObjectService_Constructor_Valid()
         {
+            // This test verifies that the service can be constructed successfully
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
         }
 
@@ -37,6 +38,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public void PrimaryObjectService_Constructor_PrimaryObjectRepository_Null()
         {
+            // This test verifies that the service will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(null, _secondaryObjectRepository.Object, _unitOfWork.Object);
         }
 
@@ -44,6 +46,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public void PrimaryObjectService_Constructor_SecondaryObjectRepository_Null()
         {
+            // This test verifies that the service will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, null, _unitOfWork.Object);
         }
 
@@ -51,12 +54,14 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public void PrimaryObjectService_Constructor_UnitOfWork_Null()
         {
+            // This test verifies that the service will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, null);
         }
 
         [TestMethod]
         public async Task PrimaryObjectService_CreateAsync_Valid()
         {
+            // This test verifies that CreateAsync works with valid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -77,6 +82,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Null()
         {
+            // This test verifies that the CreateAsync will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             ApiModels.PrimaryObject source = null;
             var destination = await primaryObjectService.CreateAsync(source);
@@ -86,6 +92,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Description_Null()
         {
+            // This test verifies that the CreateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -99,6 +106,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Description_Empty()
         {
+            // This test verifies that the CreateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -112,6 +120,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Description_WhiteSpace()
         {
+            // This test verifies that the CreateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -125,6 +134,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Name_Null()
         {
+            // This test verifies that the CreateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -138,6 +148,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Name_Empty()
         {
+            // This test verifies that the CreateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -151,6 +162,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_CreateAsync_InputModel_Name_WhiteSpace()
         {
+            // This test verifies that the CreateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -163,6 +175,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [TestMethod]
         public async Task PrimaryObjectService_DeleteAsync_Valid()
         {
+            // This test verifies that DeleteAsync works with valid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new DomainModels.PrimaryObject(Guid.NewGuid())
             {
@@ -197,6 +210,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentException))]
         public async Task PrimaryObjectService_DeleteAsync_Id_Empty()
         {
+            // This test verifies that the DeleteAsync will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
 
             await primaryObjectService.DeleteAsync(Guid.Empty);
@@ -206,6 +220,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoEntityNotFoundException))]
         public async Task PrimaryObjectService_DeleteAsync_NotFound()
         {
+            // This test verifies that DeleteAsync throws an error when the object is not found
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = Guid.NewGuid();
             _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(null as DomainModels.PrimaryObject);
@@ -215,6 +230,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [TestMethod]
         public async Task PrimaryObjectService_GetAllAsync_Valid()
         {
+            // This test verifies that GetAllAsync works
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             _primaryObjectRepository.Setup(_ => _.GetAllAsync()).ReturnsAsync(new List<DomainModels.PrimaryObject>());
             var destination = await primaryObjectService.GetAllAsync();
@@ -223,8 +239,9 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         }
 
         [TestMethod]
-        public async Task PrimaryObjectService_GetByIdAsync_Valid()
+        public async Task PrimaryObjectService_GetAsync_Valid()
         {
+            // This test verifies that GetAsync works with valid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new DomainModels.PrimaryObject(Guid.NewGuid())
             {
@@ -259,16 +276,18 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public async Task PrimaryObjectService_GetByIdAsync_Id_Empty()
+        public async Task PrimaryObjectService_GetAsync_Id_Empty()
         {
+            // This test verifies that the GetAsync will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
 
             var destination = await primaryObjectService.GetAsync(Guid.Empty);
         }
 
         [TestMethod]
-        public async Task PrimaryObjectService_GetByIdAsync_NotFound()
+        public async Task PrimaryObjectService_GetAsync_NotFound()
         {
+            // This test verifies that GetAsync throws an error when the object is not found
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = Guid.NewGuid();
             _primaryObjectRepository.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(null as DomainModels.PrimaryObject);
@@ -279,6 +298,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [TestMethod]
         public async Task PrimaryObjectService_UpdateAsync_Valid()
         {
+            // This test verifies that UpdateAsync works with valid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -318,6 +338,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentException))]
         public async Task PrimaryObjectService_UpdateAsync_Id_Empty()
         {
+            // This test verifies that the UpdateAsync will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -332,6 +353,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Null()
         {
+            // This test verifies that the UpdateAsync will not accept null dependencies
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             ApiModels.PrimaryObject source = null;
 
@@ -342,6 +364,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Description_Null()
         {
+            // This test verifies that the UpdateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -376,6 +399,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Description_Empty()
         {
+            // This test verifies that the UpdateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -410,6 +434,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Description_WhiteSpace()
         {
+            // This test verifies that the UpdateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -444,6 +469,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Name_Null()
         {
+            // This test verifies that the UpdateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -478,6 +504,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Name_Empty()
         {
+            // This test verifies that the UpdateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -512,6 +539,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoInputValidationException))]
         public async Task PrimaryObjectService_UpdateAsync_InputModel_Name_WhiteSpace()
         {
+            // This test verifies that the UpdateAsync will not accept invalid inputs
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {
@@ -546,6 +574,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.Services
         [ExpectedException(typeof(DemoEntityNotFoundException))]
         public async Task PrimaryObjectService_UpdateAsync_NotFound()
         {
+            // This test verifies that UpdateAsync throws an error when the object is not found
             var primaryObjectService = new PrimaryObjectService(_primaryObjectRepository.Object, _secondaryObjectRepository.Object, _unitOfWork.Object);
             var source = new ApiModels.PrimaryObject()
             {

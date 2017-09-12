@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rightpoint.UnitTesting.Demo.Api.Controllers;
 
 namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
 {
@@ -12,6 +13,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
         [TestMethod]
         public void UnityConfig_GetConfiguredContainer()
         {
+            // This test verifies that your Unity registration logic does not error out.
             var container = UnityConfig.GetConfiguredContainer();
             Assert.IsNotNull(container);
         }
@@ -19,6 +21,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
         [TestMethod]
         public void UnityConfig_ResolveControllers()
         {
+            // This test verifies that all of your controllers can be resolved successfully.
             using (var container = UnityConfig.GetConfiguredContainer())
             {
                 var controllerTypes = typeof(UnityConfig).Assembly.GetTypes()
@@ -29,8 +32,8 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
                 {
                     var resolvedObject = container.Resolve(type);
                     Assert.IsNotNull(resolvedObject);
-                    var apiController = resolvedObject as ApiController;
-                    Assert.IsNotNull(apiController);
+                    var baseController = resolvedObject as BaseController;
+                    Assert.IsNotNull(baseController);
                 }
             }
         }
@@ -41,7 +44,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
             {
                 return false;
             }
-            else if (type == typeof(ApiController))
+            else if (type == typeof(BaseController))
             {
                 return true;
             }
@@ -49,7 +52,7 @@ namespace Rightpoint.UnitTesting.Demo.Api.Tests.App_Start
             {
                 return false;
             }
-            else if (type.BaseType == typeof(ApiController))
+            else if (type.BaseType == typeof(BaseController))
             {
                 return true;
             }

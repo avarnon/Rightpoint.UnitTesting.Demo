@@ -51,10 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinarySerializer.cs" />
-    <Compile Include="Extensions\DemoInvalidOperationExceptionTests.cs" />
-    <Compile Include="Extensions\DemoInputValidationExceptionTests.cs" />
-    <Compile Include="Extensions\DemoEntityNotFoundExceptionTests.cs" />
-    <Compile Include="Extensions\DemoExceptionTests.cs" />
+    <Compile Include="Exceptions\DemoInvalidOperationExceptionTests.cs" />
+    <Compile Include="Exceptions\DemoInputValidationExceptionTests.cs" />
+    <Compile Include="Exceptions\DemoEntityNotFoundExceptionTests.cs" />
+    <Compile Include="Exceptions\DemoExceptionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
