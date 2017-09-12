@@ -46,8 +46,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
             }
             catch (WebException ex)
             {
-                HandleWebExcpetion(ex);
-                throw;
+                throw await ProcessWebExcpetionAsync(ex);
             }
 
             return JsonConvert.DeserializeObject<TEntity>(outputJson);
@@ -64,8 +63,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
             }
             catch (WebException ex)
             {
-                HandleWebExcpetion(ex);
-                throw;
+                throw await ProcessWebExcpetionAsync(ex);
             }
         }
 
@@ -84,8 +82,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
             }
             catch (WebException ex)
             {
-                HandleWebExcpetion(ex);
-                throw;
+                throw await ProcessWebExcpetionAsync(ex);
             }
 
             return JsonConvert.DeserializeObject<TEntity>(outputJson);
@@ -109,8 +106,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
             }
             catch (WebException ex)
             {
-                HandleWebExcpetion(ex);
-                throw;
+                throw await ProcessWebExcpetionAsync(ex);
             }
 
             return JsonConvert.DeserializeObject<TEntity>(outputJson);
@@ -130,7 +126,7 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
             }
         }
 
-        private static async Task HandleWebExcpetion(WebException ex)
+        private static async Task<Exception> ProcessWebExcpetionAsync(WebException ex)
         {
             var response = ex.Response as HttpWebResponse;
             if (response != null)
@@ -156,13 +152,15 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.NotFound:
-                        throw new RemoteEntityNotFoundException(responsePayload, ex);
+                        return new RemoteEntityNotFoundException(responsePayload, ex);
                     case HttpStatusCode.BadRequest:
-                        throw new RemoteInvalidOperationException(responsePayload, ex);
+                        return new RemoteInvalidOperationException(responsePayload, ex);
                     default:
-                        throw new RemoteException(responsePayload, ex);
+                        return new RemoteException(responsePayload, ex);
                 }
             }
+
+            return new RemoteException("Unknown server error", ex);
         }
     }
 }

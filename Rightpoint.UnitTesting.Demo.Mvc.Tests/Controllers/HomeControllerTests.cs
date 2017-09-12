@@ -5,7 +5,7 @@ using Rightpoint.UnitTesting.Demo.Mvc.Controllers;
 namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Controllers
 {
     [TestClass]
-    public class HomeControllerTests
+    public class HomeControllerTests : BaseControllerTests<HomeController>
     {
         [TestMethod]
         public void HomeController_Constructor()
@@ -19,6 +19,11 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Controllers
             var controller = new HomeController();
             var result = controller.Index();
             Assert.IsNotNull(result);
+        }
+
+        protected override HomeController GetControllerInstance()
+        {
+            return new HomeController();
         }
     }
 }

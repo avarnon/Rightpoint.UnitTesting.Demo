@@ -10,7 +10,7 @@ using Rightpoint.UnitTesting.Demo.Mvc.Controllers;
 namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Controllers
 {
     [TestClass]
-    public class PrimaryObjectsControllerTests
+    public class PrimaryObjectsControllerTests : BaseControllerTests<PrimaryObjectsController>
     {
         private Mock<IPrimaryObjectService> _primaryObjectService;
         private Mock<ISecondaryObjectService> _secondaryObjectService;
@@ -159,6 +159,11 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Tests.Controllers
             collection[nameof(Mvc.Models.PrimaryObject.Name)] = "Name";
             var result = await controller.Delete(Guid.NewGuid(), collection);
             Assert.IsNotNull(result);
+        }
+
+        protected override PrimaryObjectsController GetControllerInstance()
+        {
+            return new PrimaryObjectsController(_primaryObjectService.Object, _secondaryObjectService.Object);
         }
     }
 }

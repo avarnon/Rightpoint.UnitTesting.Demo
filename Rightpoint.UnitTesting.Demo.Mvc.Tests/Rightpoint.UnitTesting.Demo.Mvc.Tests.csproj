@@ -99,6 +99,7 @@
     <Compile Include="App_Start\UnityConfigTests.cs" />
     <Compile Include="Contracts\Models\PrimaryObjectTests.cs" />
     <Compile Include="Contracts\Models\SecondaryObjectTests.cs" />
+    <Compile Include="Controllers\BaseControllerTests.cs" />
     <Compile Include="Controllers\SecondaryObjectsControllerTests.cs" />
     <Compile Include="Controllers\PrimaryObjectsControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
