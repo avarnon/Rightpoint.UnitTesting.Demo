@@ -4,6 +4,13 @@ using System.Web.Optimization;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc
 {
+    /// <summary>
+    /// Bundle Configuration.
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// This is canned code that comes with an MVC project anyway.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public class BundleConfig
     {

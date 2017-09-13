@@ -8,7 +8,13 @@ using Microsoft.Practices.Unity.Mvc;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.App_Start
 {
-    /// <summary>Provides the bootstrapping for integrating Unity with ASP.NET MVC.</summary>
+    /// <summary>
+    /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// This is canned code that comes with Unity anyway.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public static class UnityWebActivator
     {

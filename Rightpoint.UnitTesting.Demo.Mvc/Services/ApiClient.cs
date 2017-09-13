@@ -11,6 +11,13 @@ using Rightpoint.UnitTesting.Demo.Mvc.Exceptions;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 {
+    /// <summary>
+    /// Demo API Client.
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// This class is a thin wrapper around <see cref="System.Net.WebClient"/> which can't really be mocked for unit testing.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public class ApiClient : IApiClient, IDisposable
     {
@@ -128,39 +135,73 @@ namespace Rightpoint.UnitTesting.Demo.Mvc.Services
 
         private static async Task<Exception> ProcessWebExcpetionAsync(WebException ex)
         {
-            var response = ex.Response as HttpWebResponse;
-            if (response != null)
+            string response = null;
+            string responseContentType = null;
+            Uri responseUri = null;
+            var status = ex.Status;
+            HttpStatusCode? statusCode = null;
+            string statusDescription = null;
+
+            var webResponse = ex.Response as HttpWebResponse;
+            if (webResponse != null)
             {
-                string responsePayload = null;
-                var strm = response.GetResponseStream();
-                if (strm != null)
+                responseUri = webResponse.ResponseUri;
+                responseContentType = webResponse.ContentType;
+                statusCode = webResponse.StatusCode;
+                statusDescription = webResponse.StatusDescription;
+
+                var responseStream = webResponse.GetResponseStream();
+                if (responseStream != null)
                 {
                     try
                     {
-                        using (var rdr = new StreamReader(strm))
+                        if (responseStream.CanRead)
                         {
-                            responsePayload = await rdr.ReadToEndAsync();
+                            using (var reader = new StreamReader(responseStream))
+                            {
+                                response = await reader.ReadToEndAsync();
+                            }
                         }
                     }
                     finally
                     {
-                        strm.Dispose();
-                        strm = null;
+                        responseStream.Dispose();
+                        responseStream = null;
                     }
-                }
-
-                switch (response.StatusCode)
-                {
-                    case HttpStatusCode.NotFound:
-                        return new RemoteEntityNotFoundException(responsePayload, ex);
-                    case HttpStatusCode.BadRequest:
-                        return new RemoteInvalidOperationException(responsePayload, ex);
-                    default:
-                        return new RemoteException(responsePayload, ex);
                 }
             }
 
-            return new RemoteException("Unknown server error", ex);
+            Exception newEx = null;
+            var message = string.IsNullOrWhiteSpace(response) ? "Unknown server error" : response;
+
+            if (statusCode.HasValue)
+            {
+                switch (statusCode.Value)
+                {
+                    case HttpStatusCode.NotFound:
+                        newEx = new RemoteEntityNotFoundException(message, ex);
+                        break;
+                    case HttpStatusCode.BadRequest:
+                        newEx = new RemoteInvalidOperationException(message, ex);
+                        break;
+                    default:
+                        newEx = new RemoteException(message, ex);
+                        break;
+                }
+            }
+            else
+            {
+                newEx = new RemoteException(message, ex);
+            }
+
+            if (string.IsNullOrWhiteSpace(response) == false) newEx.Data.Add("Response", response);
+            if (string.IsNullOrWhiteSpace(responseContentType) == false) newEx.Data.Add("ContentType", responseContentType);
+            if (responseUri != null) newEx.Data.Add("ResponseUri", responseUri.ToString());
+            if (statusCode.HasValue) newEx.Data.Add("StatusCode", statusCode.ToString());
+            if (string.IsNullOrWhiteSpace(statusDescription) == false) newEx.Data.Add("StatusDescription", statusDescription);
+            newEx.Data.Add("Status", status.ToString());
+
+            return newEx;
         }
     }
 }

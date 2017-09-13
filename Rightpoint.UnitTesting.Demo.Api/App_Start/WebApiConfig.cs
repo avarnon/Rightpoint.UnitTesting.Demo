@@ -8,6 +8,13 @@ using Rightpoint.UnitTesting.Demo.Api.Attributes;
 
 namespace Rightpoint.UnitTesting.Demo.Api
 {
+    /// <summary>
+    /// Web API Configuration.
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// This is canned code that comes with a Web API project anyway.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public static class WebApiConfig
     {

@@ -7,6 +7,11 @@ namespace Rightpoint.UnitTesting.Demo.Common.Tests
     /// <summary>
     /// Helper class for testing binary serialization
     /// </summary>
+    /// <remarks>
+    /// This class is added as a link to projects outside of Rightpoint.UnitTesting.Demo.Common
+    /// because adding a reference to Rightpoint.UnitTesting.Demo.Common will copy it to the bin folder of the second project.
+    /// Have a test DLL copied to another BIN folder can cause issues on the build server when running unit tests.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public static class BinarySerializer
     {

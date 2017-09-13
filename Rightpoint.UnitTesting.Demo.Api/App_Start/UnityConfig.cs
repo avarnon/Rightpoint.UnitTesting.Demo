@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Rightpoint.UnitTesting.Demo.Api.Contracts;
@@ -36,7 +37,17 @@ namespace Rightpoint.UnitTesting.Demo.Api
         /// <param name="container">The unity container to configure.</param>
         public static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<DemoContext>(new HierarchicalLifetimeManager());
+            foreach (string key in ConfigurationManager.AppSettings)
+            {
+                container.RegisterInstance<string>($"AppSettings:{key}", ConfigurationManager.AppSettings[key]);
+            }
+
+            foreach (ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
+            {
+                container.RegisterInstance<string>($"ConnectionStrings:{connectionStringSettings.Name}", connectionStringSettings.ConnectionString);
+            }
+
+            container.RegisterType<DemoContext>(new HierarchicalLifetimeManager(), new InjectionConstructor());
             container.RegisterType<IApiExceptionMapper, ApiExceptionMapper>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectRepository, PrimaryObjectRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrimaryObjectService, PrimaryObjectService>(new HierarchicalLifetimeManager());

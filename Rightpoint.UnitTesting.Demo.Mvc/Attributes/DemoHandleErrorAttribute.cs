@@ -6,6 +6,13 @@ using Rightpoint.UnitTesting.Demo.Mvc.Contracts;
 
 namespace Rightpoint.UnitTesting.Demo.Mvc.Attributes
 {
+    /// <summary>
+    /// Demo MVC project's Handle Error Attribute.
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// We can't easily test this because of it's dependency on the HTTP pipeline for dependency resolution. There wouldn't be much benefit in testing it anyway.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
     public class DemoHandleErrorAttribute : HandleErrorAttribute

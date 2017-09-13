@@ -4,6 +4,13 @@ using System.Web.Http.Filters;
 
 namespace Rightpoint.UnitTesting.Demo.Api
 {
+    /// <summary>
+    /// Filter Attribute extensions.
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// We can't easily test this because of it's dependency on the HTTP pipeline for dependency resolution. There wouldn't be much benefit in testing it anyway.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public static class FilterAttributeExtensions
     {

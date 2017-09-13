@@ -7,7 +7,13 @@ using Microsoft.Practices.Unity.WebApi;
 
 namespace Rightpoint.UnitTesting.Demo.Api
 {
-    /// <summary>Provides the bootstrapping for integrating Unity with WebApi when it is hosted in ASP.NET</summary>
+    /// <summary>
+    /// Provides the bootstrapping for integrating Unity with WebApi when it is hosted in ASP.NET
+    /// </summary>
+    /// <remarks>
+    /// We're using <see cref="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/> on the class because we can't really unit test it.
+    /// This is canned code that comes with Unity anyway.
+    /// </remarks>
     [ExcludeFromCodeCoverage]
     public static class UnityWebApiActivator
     {
