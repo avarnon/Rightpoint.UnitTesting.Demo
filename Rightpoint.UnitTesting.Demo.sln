@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Api", "Rightpoint.UnitTesting.Demo.Api\Rightpoint.UnitTesting.Demo.Api.csproj", "{A1FA467A-FDC7-43EB-AD8A-375126741A48}"
 EndProject
@@ -22,6 +22,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Common", "Rightpoint.UnitTesting.Demo.Common\Rightpoint.UnitTesting.Demo.Common.csproj", "{47AC5C8D-311D-4B9A-A985-8567F41E61BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Common.Tests", "Rightpoint.UnitTesting.Demo.Common.Tests\Rightpoint.UnitTesting.Demo.Common.Tests.csproj", "{77F0A84A-D3C2-4B39-9B1B-834652947ADE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{E780B10C-43EC-476C-88D7-0E2D3A53BE31}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+		Rightpoint.UnitTesting.Demo.ruleset = Rightpoint.UnitTesting.Demo.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
