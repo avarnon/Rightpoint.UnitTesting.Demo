@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rightpoint.UnitTesting.Demo.Api", "Rightpoint.UnitTesting.Demo.Api\Rightpoint.UnitTesting.Demo.Api.csproj", "{A1FA467A-FDC7-43EB-AD8A-375126741A48}"
 EndProject
@@ -29,6 +29,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		.gitignore = .gitignore
 		README.md = README.md
 		Rightpoint.UnitTesting.Demo.ruleset = Rightpoint.UnitTesting.Demo.ruleset
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LINQPad", "LINQPad", "{8342A1CB-90D7-43E4-B06A-E3E9EC51EA7C}"
+	ProjectSection(SolutionItems) = preProject
+		LINQPad\ServiceUnitTestStarter.linq = LINQPad\ServiceUnitTestStarter.linq
 	EndProjectSection
 EndProject
 Global
